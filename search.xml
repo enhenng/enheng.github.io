@@ -18,4 +18,11 @@
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>enhenng-first-blog----sql注入</title>
+    <url>/2022/11/09/enhenng-first-blog-sql%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<p>Hello，我是enhenng,在历经了长达三周的删删改改重建之后，我的blog终于搭建成功啦。</p>
+<p>本文目标：学习sql注入，掌握基本的注入知识</p>
+]]></content>
+  </entry>
 </search>
