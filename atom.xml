@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-11-19T00:33:03.451Z</updated>
+  <updated>2022-12-24T12:42:59.838Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,69 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python学习笔记</title>
+    <link href="http://example.com/2022/12/24/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://example.com/2022/12/24/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2022-12-24T12:42:09.000Z</published>
+    <updated>2022-12-24T12:42:59.838Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="编程的两大思想（我还是不能明白）"><a href="#编程的两大思想（我还是不能明白）" class="headerlink" title="编程的两大思想（我还是不能明白）"></a>编程的两大思想（我还是不能明白）</h1><p>1.面向过程：事物比较简单，可以用线性的思维去解决<br>2.面向对象：事物比较复杂，使用简单的线性思维无法解决</p><h2 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h2><h3 id="类："><a href="#类：" class="headerlink" title="类："></a>类：</h3><p>数据类型：不同的数据类型属于不同的类<br>对象：9,100等实体的例子<br><strong>类的创建：</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>: <span class="comment">#Student是类名，可以由一个或多个单词组成，首字母大写，其余小写</span></span><br><span class="line"> <span class="keyword">pass</span>  <span class="comment">#表示先占一个位置</span></span><br></pre></td></tr></table></figure><p> <strong>类的组成：</strong></p><ul><li>类属性</li><li>实例方法</li><li>静态方法</li><li>类方法</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>:</span><br><span class="line">    native_place=<span class="string">&#x27;吉林&#x27;</span>  <span class="comment">#类属性（直接写在类里的变量）</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,age</span>):  <span class="comment">#name,age是实例属性</span></span><br><span class="line">        self.name=name</span><br><span class="line">        self.age=age</span><br><span class="line">    <span class="comment">#实例方法（在类之外定义的是函数，内部定义的是实例方法）</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">info</span>(<span class="params">self</span>):</span><br><span class="line">       <span class="built_in">print</span>(<span class="string">&#x27;我的名字叫：&#x27;</span>,self.name,<span class="string">&#x27;年龄是：&#x27;</span>，self.age)</span><br><span class="line">    <span class="comment">#静态方法</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sm</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;静态方法&#x27;</span>)</span><br><span class="line">    <span class="comment">#类方法</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">cm</span>(<span class="params">cls</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;静态方法&#x27;</span>)</span><br><span class="line">```    </span><br><span class="line"><span class="comment">### 对象 </span></span><br><span class="line">```python</span><br><span class="line"><span class="comment">#创建Student类中的对象</span></span><br><span class="line">stu1=Student(<span class="string">&#x27;张三&#x27;</span>，<span class="number">20</span>)</span><br><span class="line">stu1.info()  <span class="comment">#这个就是调用info函数   或者也可以是Student.info(stu1)</span></span><br></pre></td></tr></table></figure><h2 id="关于类属性，静态方法与类方法-我还是不明白三种之间到底有什么区别"><a href="#关于类属性，静态方法与类方法-我还是不明白三种之间到底有什么区别" class="headerlink" title="关于类属性，静态方法与类方法(我还是不明白三种之间到底有什么区别)"></a>关于类属性，静态方法与类方法(我还是不明白三种之间到底有什么区别)</h2><p>类属性:@property<br>把类的一些属性封装，类似于数据类型，比如这个类属性为学生等等</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>():</span><br><span class="line">    age=<span class="number">18</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">printmessage</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">s1=Student()</span><br><span class="line">s1.printmessage</span><br></pre></td></tr></table></figure><hr><p>静态方法<br>相当于在类里面调用的一个函数 </p><p>&#96;&#96;&#96;python<br>class Student():<br>    age&#x3D;18<br>    @staticmethod<br>    def printmessage():<br>        print(Student.age)    </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;编程的两大思想（我还是不能明白）&quot;&gt;&lt;a href=&quot;#编程的两大思想（我还是不能明白）&quot; class=&quot;headerlink&quot; title=&quot;编程的两大思想（我还是不能明白）&quot;&gt;&lt;/a&gt;编程的两大思想（我还是不能明白）&lt;/h1&gt;&lt;p&gt;1.面向过程：事物比较简单，</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/12/16/PHP%E8%AF%AD%E8%A8%80/"/>
+    <id>http://example.com/2022/12/16/PHP%E8%AF%AD%E8%A8%80/</id>
+    <published>2022-12-16T02:42:43.494Z</published>
+    <updated>2022-12-16T02:42:43.609Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="PHP语言学习"><a href="#PHP语言学习" class="headerlink" title="PHP语言学习"></a>PHP语言学习</h1><h2 id="PHP中回显和打印"><a href="#PHP中回显和打印" class="headerlink" title="PHP中回显和打印"></a>PHP中回显和打印</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;PHP语言学习&quot;&gt;&lt;a href=&quot;#PHP语言学习&quot; class=&quot;headerlink&quot; title=&quot;PHP语言学习&quot;&gt;&lt;/a&gt;PHP语言学习&lt;/h1&gt;&lt;h2 id=&quot;PHP中回显和打印&quot;&gt;&lt;a href=&quot;#PHP中回显和打印&quot; class=&quot;header</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2022/12/11/New%20Document/"/>
+    <id>http://example.com/2022/12/11/New%20Document/</id>
+    <published>2022-12-11T08:35:43.714Z</published>
+    <updated>2022-12-16T07:19:04.546Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="层次分析法"><a href="#层次分析法" class="headerlink" title="层次分析法"></a>层次分析法</h1><p>解决评价类问题：  </p><ol><li>我们评价的目标是什么？  </li><li>我们为了达到这个目标有几个可选的方案  </li><li>评价的准则或者说指标是什么？</li></ol><p>指标权重—&gt;判断矩阵<br>判断矩阵可能出现一个错误：及两个之间的变量关系与第三者之间的变量关系不一致（一致矩阵）<br><strong>在使用判断矩阵之前必须对其进行一致性检验</strong><br>一致性判断过程： </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;层次分析法&quot;&gt;&lt;a href=&quot;#层次分析法&quot; class=&quot;headerlink&quot; title=&quot;层次分析法&quot;&gt;&lt;/a&gt;层次分析法&lt;/h1&gt;&lt;p&gt;解决评价类问题：  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;我们评价的目标是什么？  &lt;/li&gt;
+&lt;li&gt;我们为了达到这个目标有</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>数据结构与算法分析</title>
