@@ -54,7 +54,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-New Document"
+  id="post-密码学实验"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -63,15 +63,15 @@
   <div class="article-inner">
      
     <div class="article-meta">
-      <a href="/2022/12/11/New%20Document/" class="article-date">
-  <time datetime="2022-12-11T08:35:43.714Z" itemprop="datePublished">2022-12-11</time>
+      <a href="/2023/11/20/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%9E%E9%AA%8C/" class="article-date">
+  <time datetime="2023-11-20T13:57:12.835Z" itemprop="datePublished">2023-11-20</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">129</span>
+            <span class="post-count">339</span>
         </span>
     </span>
 
@@ -95,14 +95,50 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="层次分析法"><a href="#层次分析法" class="headerlink" title="层次分析法"></a>层次分析法</h1><p>解决评价类问题：  </p>
+  <h1 id="密码学实验一"><a href="#密码学实验一" class="headerlink" title="密码学实验一"></a>密码学实验一</h1><h3 id="1-题目"><a href="#1-题目" class="headerlink" title="1 题目"></a>1 题目</h3><p>1. Coursera Dan Boneh Week 1 Program Assignment</p>
+<p>Many Time Pad</p>
+<p>2. PA1 option</p>
+<p>Write a program that allows you to “crack” ciphertexts generated using a Vigenere-like cipher, where byte-wise XOR is used instead of addition modulo 26.</p>
+<p>3. <a target="_blank" rel="noopener" href="http://www.cryptopals.com/sets/1">http://www.cryptopals.com/sets/1</a></p>
+<p>(1) Convert hex to base64</p>
+<p>(2) Fixed XOR</p>
+<p>(3) Single-byte XOR cipher</p>
+<p>(4) Detect single-character XOR</p>
+<p>(5) Implement repeating-key XOR</p>
+<p>(6) Break repeating-key XOR</p>
+<p>4. MTC3 Cracking SHA1-Hashed Passwords</p>
+<p><a target="_blank" rel="noopener" href="https://www.mysterytwisterc3.org/en/challenges/level-2/cracking-sha1-hashed-passwords">https://www.mysterytwisterc3.org/en/challenges/level-2/cracking-sha1-hashed-passwords</a></p>
+<h3 id="2-题目描述"><a href="#2-题目描述" class="headerlink" title="2 题目描述"></a>2 题目描述</h3><h5 id="2-1-Coursera-Dan-Boneh-Week-1-Program-Assignment"><a href="#2-1-Coursera-Dan-Boneh-Week-1-Program-Assignment" class="headerlink" title="2.1 Coursera Dan Boneh Week 1 Program Assignment"></a>2.1 Coursera Dan Boneh Week 1 Program Assignment</h5><h6 id="2-1-1背景"><a href="#2-1-1背景" class="headerlink" title="2.1.1背景"></a>2.1.1背景</h6><p><img src="https://img-blog.csdnimg.cn/20191020012359251.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMDI2MjE5,size_16,color_FFFFFF,t_70" alt="题目"></p>
+<p><strong>ciphertext 1</strong></p>
+<p><code>315c4eeaa8b5f8aaf9174145bf43e1784b8fa00dc71d885a804e5ee9fa40b16349c146fb778cdf2d3aff021dfff5b403b510d0d0455468aeb98622b137dae857553ccd8883a7bc37520e06e515d22c954eba5025b8cc57ee59418ce7dc6bc41556bdb36bbca3e8774301fbcaa3b83b220809560987815f65286764703de0f3d524400a19b159610b11ef3e</code></p>
+<p><strong>ciphertext 2</strong></p>
+<p><code>234c02ecbbfbafa3ed18510abd11fa724fcda2018a1a8342cf064bbde548b12b07df44ba7191d9606ef4081ffde5ad46a5069d9f7f543bedb9c861bf29c7e205132eda9382b0bc2c5c4b45f919cf3a9f1cb74151f6d551f4480c82b2cb24cc5b028aa76eb7b4ab24171ab3cdadb8356f</code></p>
+<p><strong>ciphertext 3</strong></p>
+<p><code>32510ba9a7b2bba9b8005d43a304b5714cc0bb0c8a34884dd91304b8ad40b62b07df44ba6e9d8a2368e51d04e0e7b207b70b9b8261112bacb6c866a232dfe257527dc29398f5f3251a0d47e503c66e935de81230b59b7afb5f41afa8d661cb</code></p>
+<p><strong>ciphertext 4</strong></p>
+<p><code>32510ba9aab2a8a4fd06414fb517b5605cc0aa0dc91a8908c2064ba8ad5ea06a029056f47a8ad3306ef5021eafe1ac01a81197847a5c68a1b78769a37bc8f4575432c198ccb4ef63590256e305cd3a9544ee4160ead45aef520489e7da7d835402bca670bda8eb775200b8dabbba246b130f040d8ec6447e2c767f3d30ed81ea2e4c1404e1315a1010e7229be6636aaa</code></p>
+<p><strong>ciphertext 5</strong></p>
+<p><code>3f561ba9adb4b6ebec54424ba317b564418fac0dd35f8c08d31a1fe9e24fe56808c213f17c81d9607cee021dafe1e001b21ade877a5e68bea88d61b93ac5ee0d562e8e9582f5ef375f0a4ae20ed86e935de81230b59b73fb4302cd95d770c65b40aaa065f2a5e33a5a0bb5dcaba43722130f042f8ec85b7c2070</code></p>
+<p><code>32510bfbacfbb9befd54415da243e1695ecabd58c519cd4bd2061bbde24eb76a19d84aba34d8de287be84d07e7e9a30ee714979c7e1123a8bd9822a33ecaf512472e8e8f8db3f9635c1949e640c621854eba0d79eccf52ff111284b4cc61d11902aebc66f2b2e436434eacc0aba938220b084800c2ca4e693522643573b2c4ce35050b0cf774201f0fe52ac9f26d71b6cf61a711cc229f77ace7aa88a2f19983122b11be87a59c355d25f8e4</code></p>
+<p>….</p>
+<p>利用使用相同密钥的十一个密文解出最后一个密文的明文，从而证明多次使用同一个密钥加密是不安全的</p>
+<h6 id="2-1-2-过程："><a href="#2-1-2-过程：" class="headerlink" title="2.1.2 过程："></a>2.1.2 过程：</h6><p>不难知道该道题也是证明一次一密安全性的关键</p>
+<p><a target="_blank" rel="noopener" href="https://www.ruanx.net/many-time-pad/">Many-Time-Pad 攻击</a>（整道题都在利用空格）</p>
+<p>思路：</p>
 <ol>
-<li>我们评价的目标是什么？  </li>
-<li>我们为了达到这个目标有几个可选的方案  </li>
-<li>评价的准则或者说指标是什么？</li>
+<li><p>将所有字符串之间异或，并记录字母的频率<br>出现的问题：</p>
+<ul>
+<li><p>异或时默认高位补零，而显然我们想要的不是高位补零，而是高位齐平，低位去掉——&gt;解决方案：找出最短的长度，去低位后异或</p>
+</li>
+<li><p>我怎么取分割字符呢？即一个字符有几位表示？</p>
+</li>
+</ul>
+</li>
+<li><p>判断是否位空格和可能的值</p>
+</li>
+<li><p>设置相关的阈值，解出结果</p>
+</li>
 </ol>
-<p>指标权重—&gt;判断矩阵<br>判断矩阵可能出现一个错误：及两个之间的变量关系与第三者之间的变量关系不一致（一致矩阵）<br><strong>在使用判断矩阵之前必须对其进行一致性检验</strong><br>一致性判断过程：
- </p>
  
       <!-- reward -->
       
@@ -167,7 +203,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/12/11/New%20Document/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/11/20/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%9E%E9%AA%8C/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -178,19 +214,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/12/16/PHP%E8%AF%AD%E8%A8%80/" class="article-nav-link">
+      <a href="/2023/11/20/why/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            (no title)
+            why
           
         </div>
       </a>
     
     
-      <a href="/2022/11/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A2%84%E7%AE%97%E5%88%86%E6%9E%90/" class="article-nav-link">
+      <a href="/2022/12/24/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">数据结构与算法分析</div>
+        <div class="article-nav-title">python学习笔记</div>
       </a>
     
   </nav>
