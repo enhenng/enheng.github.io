@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>/2022/12/16/PHP%E8%AF%AD%E8%A8%80/</url>
+    <content><![CDATA[<h1 id="PHP语言学习"><a href="#PHP语言学习" class="headerlink" title="PHP语言学习"></a>PHP语言学习</h1><h2 id="PHP中回显和打印"><a href="#PHP中回显和打印" class="headerlink" title="PHP中回显和打印"></a>PHP中回显和打印</h2>]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/12/11/New%20Document/</url>
+    <content><![CDATA[<h1 id="层次分析法"><a href="#层次分析法" class="headerlink" title="层次分析法"></a>层次分析法</h1><p>解决评价类问题：  </p>
+<ol>
+<li>我们评价的目标是什么？  </li>
+<li>我们为了达到这个目标有几个可选的方案  </li>
+<li>评价的准则或者说指标是什么？</li>
+</ol>
+<p>指标权重—&gt;判断矩阵<br>判断矩阵可能出现一个错误：及两个之间的变量关系与第三者之间的变量关系不一致（一致矩阵）<br><strong>在使用判断矩阵之前必须对其进行一致性检验</strong><br>一致性判断过程：
+ </p>
+]]></content>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2022/11/09/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -48,33 +66,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>数据结构与算法分析</title>
-    <url>/2022/11/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A2%84%E7%AE%97%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p>虽然我很不想学习算法相关的知识，但我相信这块应该是有用的，还是努力学一下吧，万一我很喜欢呢~~~~</p>
-<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><p>关于树以及二叉树的基本的定义不想写了，直接从二叉树的存储开始吧  </p>
-<h2 id="二叉树的存储方式"><a href="#二叉树的存储方式" class="headerlink" title="二叉树的存储方式"></a>二叉树的存储方式</h2><p><strong>线性存储</strong><br>将二叉树赋予序号1,2,3…并将其按照顺序依次存储于数组之中—-&gt;这样会导致非完全二叉树的存储产生浪费——&gt;链式存储<br><strong>链式存储</strong><br>与线性表等完全类似<br>typedef struct Node{<br>     datatype data;<br>     struct Node *Ichild;<br>     struct Node *Rchild;<br>}Bigtree;<br>(当然，如果你愿意，大可以再加上一个parent指针，指向其双亲结点）</p>
-<h2 id="二叉树的遍历和线索化"><a href="#二叉树的遍历和线索化" class="headerlink" title="二叉树的遍历和线索化"></a>二叉树的遍历和线索化</h2><p><strong>二叉树的遍历</strong></p>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2022/12/16/PHP%E8%AF%AD%E8%A8%80/</url>
-    <content><![CDATA[<h1 id="PHP语言学习"><a href="#PHP语言学习" class="headerlink" title="PHP语言学习"></a>PHP语言学习</h1><h2 id="PHP中回显和打印"><a href="#PHP中回显和打印" class="headerlink" title="PHP中回显和打印"></a>PHP中回显和打印</h2>]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2022/12/11/New%20Document/</url>
-    <content><![CDATA[<h1 id="层次分析法"><a href="#层次分析法" class="headerlink" title="层次分析法"></a>层次分析法</h1><p>解决评价类问题：  </p>
-<ol>
-<li>我们评价的目标是什么？  </li>
-<li>我们为了达到这个目标有几个可选的方案  </li>
-<li>评价的准则或者说指标是什么？</li>
-</ol>
-<p>指标权重—&gt;判断矩阵<br>判断矩阵可能出现一个错误：及两个之间的变量关系与第三者之间的变量关系不一致（一致矩阵）<br><strong>在使用判断矩阵之前必须对其进行一致性检验</strong><br>一致性判断过程：
- </p>
-]]></content>
-  </entry>
-  <entry>
     <title>python学习笔记</title>
     <url>/2022/12/24/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20/</url>
     <content><![CDATA[<h1 id="编程的两大思想（我还是不能明白）"><a href="#编程的两大思想（我还是不能明白）" class="headerlink" title="编程的两大思想（我还是不能明白）"></a>编程的两大思想（我还是不能明白）</h1><p>1.面向过程：事物比较简单，可以用线性的思维去解决<br>2.面向对象：事物比较复杂，使用简单的线性思维无法解决</p>
@@ -97,7 +88,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>():</span><br><span class="line">    age=<span class="number">18</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">printmessage</span>():</span><br><span class="line">        <span class="built_in">print</span>(Student.age)</span><br></pre></td></tr></table></figure>
 <h2 id="动态绑定属性及其方法"><a href="#动态绑定属性及其方法" class="headerlink" title="动态绑定属性及其方法"></a>动态绑定属性及其方法</h2><p>Python是动态语言，在创建对象后可以动态的绑定属性和方法</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_init_</span>(<span class="params">self,name,age</span>):</span><br><span class="line">        self.name=name</span><br><span class="line">        self.age=age</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">eat</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(self.name+<span class="string">&#x27;在吃饭&#x27;</span>)</span><br><span class="line"><span class="comment">#动态绑定</span></span><br><span class="line">stu1=Student(<span class="string">&#x27;张三&#x27;</span>,<span class="number">20</span>)</span><br><span class="line">stu2=Student(<span class="string">&#x27;李四&#x27;</span>,<span class="number">18</span>)</span><br><span class="line">stu2.gender=<span class="string">&#x27;男&#x27;</span>  <span class="comment">#则只有stu2才有gender这一属性</span></span><br></pre></td></tr></table></figure>
-<p><img src="D:\enhenng的博客\hexo-blog\source_posts\Python学习方法重写.png" alt="代码演示 "></p>
+<p><img src="/.com//enhenng的博客\hexo-blog\source_posts\Python学习方法重写.png" alt="代码演示 "></p>
 <h2 id="面向对象的三大特征"><a href="#面向对象的三大特征" class="headerlink" title="面向对象的三大特征"></a>面向对象的三大特征</h2><p><strong>封装</strong>：提高程序安全性 </p>
 <ul>
 <li>将数据（属性）和行为（方法）包装到类的对象中，在外部直接对对象的调用的方法</li>
@@ -120,6 +111,15 @@
 <li>子类重写后的方法中可以通过super().xxx()调用父类中被重写的方法<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):     <span class="comment">#这里就是相当于默认继承object，也可以不写</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,age</span>):</span><br><span class="line">        self.name=name</span><br><span class="line">        self.age=age</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">info</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(self.name,self.age)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>(<span class="title class_ inherited__">Person</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,age,stu_num</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(name,age)   <span class="comment">#这里就是调用父类的init方式</span></span><br><span class="line">        self.stu_num=stu_num</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">info</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().info()  <span class="comment">#注意这里不需要加上self</span></span><br><span class="line">        <span class="built_in">print</span>(self.stu_num)</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="魔法函数"><a href="#魔法函数" class="headerlink" title="魔法函数"></a>魔法函数</h2><p>魔法方法：_ _xx _ <em>()的函数叫做魔法方法<br>魔法函数 :</em> _xx _ _()开始和结束的函数叫做魔法函数（允许在类中自定义函数，并且绑定到类的方法</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>数据结构与算法分析</title>
+    <url>/2022/11/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A2%84%E7%AE%97%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>虽然我很不想学习算法相关的知识，但我相信这块应该是有用的，还是努力学一下吧，万一我很喜欢呢~~~~</p>
+<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><p>关于树以及二叉树的基本的定义不想写了，直接从二叉树的存储开始吧  </p>
+<h2 id="二叉树的存储方式"><a href="#二叉树的存储方式" class="headerlink" title="二叉树的存储方式"></a>二叉树的存储方式</h2><p><strong>线性存储</strong><br>将二叉树赋予序号1,2,3…并将其按照顺序依次存储于数组之中—-&gt;这样会导致非完全二叉树的存储产生浪费——&gt;链式存储<br><strong>链式存储</strong><br>与线性表等完全类似<br>typedef struct Node{<br>     datatype data;<br>     struct Node *Ichild;<br>     struct Node *Rchild;<br>}Bigtree;<br>(当然，如果你愿意，大可以再加上一个parent指针，指向其双亲结点）</p>
+<h2 id="二叉树的遍历和线索化"><a href="#二叉树的遍历和线索化" class="headerlink" title="二叉树的遍历和线索化"></a>二叉树的遍历和线索化</h2><p><strong>二叉树的遍历</strong></p>
 ]]></content>
   </entry>
   <entry>
