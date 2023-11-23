@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>分组密码 |  Enhenng的博客</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Enhenng的博客" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-分组密码"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  分组密码
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/03/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" class="article-date">
+  <time datetime="2023-10-02T16:00:00.000Z" itemprop="datePublished">2023-10-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA%E7%9F%A5%E8%AF%86/">密码学理论知识</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p> 最近一直在看分组密码的相关知识，学得很零碎，写下这篇是为了让我的分组密码形成一个完整的体系</p>
+<h3 id="1-整体认知"><a href="#1-整体认知" class="headerlink" title="1 整体认知"></a>1 整体认知</h3><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/48ba8ffd-94ea-4312-a0c6-6a4bc780969b.png" alt="48ba8ffd-94ea-4312-a0c6-6a4bc780969b"></p>
+<p>分组密码是将明文分组，严格选择n位明文作为输入，n位密文作为输出</p>
+<h4 id="1-1-迭代（对于3DES和AES来说，他们的整体应用过程如下）"><a href="#1-1-迭代（对于3DES和AES来说，他们的整体应用过程如下）" class="headerlink" title="1.1 迭代（对于3DES和AES来说，他们的整体应用过程如下）"></a>1.1 迭代（对于3DES和AES来说，他们的整体应用过程如下）</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/f790f94d-a423-4d04-8361-72860388a647.png" alt="f790f94d-a423-4d04-8361-72860388a647"></p>
+<p>即首先输入的密钥k会经过密钥拓展，把拓展出来的密钥作为下一个轮函数的密钥</p>
+<h4 id="1-2-PRPs-和-PRFs-不知道这块有什么用"><a href="#1-2-PRPs-和-PRFs-不知道这块有什么用" class="headerlink" title="1.2 PRPs 和 PRFs(不知道这块有什么用)"></a>1.2 <mark>PRPs 和 PRFs</mark>(不知道这块有什么用)</h4><p>PRFs：（伪随机函数）<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/1177a0f6-2610-438e-ad38-881e15ad403e.png" alt="1177a0f6-2610-438e-ad38-881e15ad403e"> </p>
+<p>PRPs：（伪随机置换）<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/3322a4f0-13a8-4fea-ac17-e9a2b5164940.png" alt="3322a4f0-13a8-4fea-ac17-e9a2b5164940"></p>
+<p>两者的区别在于PRPs的密钥一旦确定，X与X之间的映射关系是一一对应的，即满射（所以不难看出PRPs是可逆的）</p>
+<h6 id="1-2-1-Secure-PRFs"><a href="#1-2-1-Secure-PRFs" class="headerlink" title="1.2.1 Secure PRFs"></a>1.2.1 Secure PRFs</h6><p>在讨论PRFs的安全性时，我们引入了两个函数</p>
+<ul>
+<li><p>从X到Y真正随机的函数集合：<br><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/ee88c7b2-adec-4b2e-aebb-74e567eedd26.png" alt="ee88c7b2-adec-4b2e-aebb-74e567eedd26"></p>
+</li>
+<li><p>给定k的情况下X到Y的函数集合：<br><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/8795b1cd-fefc-4b3f-ad57-79c846adefb3.png" alt="8795b1cd-fefc-4b3f-ad57-79c846adefb3"></p>
+</li>
+</ul>
+<p>而PRFs是安全的意思是给定密钥的函数f(x)与真正随机的函数Funs[X,Y]之间是不可区分的。</p>
+<h6 id="1-2-2-由PRF构造PRG"><a href="#1-2-2-由PRF构造PRG" class="headerlink" title="1.2.2 由PRF构造PRG"></a>1.2.2 由PRF构造PRG</h6><p><strong>PRF</strong> :<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/9d723277-ea4d-4bdc-a3d5-698e3a30d3b2.png" alt="9d723277-ea4d-4bdc-a3d5-698e3a30d3b2"></p>
+<p>取与PRF相同的密钥空间作为PRG的密码空间，所构造的伪随机序列由F的个数决定</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/dc939961-decc-4830-97ed-780605495546.png" alt="dc939961-decc-4830-97ed-780605495546"></p>
+<p>此时的伪随机序列是<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/34d20e8e-aacd-4182-bb52-48db96bfa27d.png" alt="34d20e8e-aacd-4182-bb52-48db96bfa27d"></p>
+<p>利用这个方法构造伪随机序列的好处是可以在多核处理器上同时计算。</p>
+<h3 id="2-DES"><a href="#2-DES" class="headerlink" title="2 DES"></a>2 DES</h3><h4 id="2-1-DES的关键部分-—-Feistel-Network"><a href="#2-1-DES的关键部分-—-Feistel-Network" class="headerlink" title="2.1 DES的关键部分 —- Feistel Network"></a>2.1 DES的关键部分 —- Feistel Network</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/7a8b75e7-4b2d-49af-ada8-b578867978ed.png" alt="7a8b75e7-4b2d-49af-ada8-b578867978ed"></p>
+<p> 可以证明，Feistel网络是可逆的，而它的可逆性与f1-fd的选择无关，下面一张图，则是对其可逆性的解释</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/d8472e9f-eb1a-4b2c-903e-f58f23bdb4ad.png" alt="d8472e9f-eb1a-4b2c-903e-f58f23bdb4ad"></p>
+<h6 id="2-1-1-利用Feistel网络和PRF构造PRP"><a href="#2-1-1-利用Feistel网络和PRF构造PRP" class="headerlink" title="2.1.1 利用Feistel网络和PRF构造PRP"></a>2.1.1 利用Feistel网络和PRF构造PRP</h6><p><strong>PRF</strong> ：<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/c2ab66bb-8e16-430b-954d-abab41da5ed8.png" alt="c2ab66bb-8e16-430b-954d-abab41da5ed8"></p>
+<p>使用一轮或多轮的Feistel网络（Feistel网络中的函数即为现在的PRF函数）得到PRP</p>
+<p><mark>注意：在不同的轮中使用的K是不同的，否则就相当于解密</mark></p>
+<h4 id="2-2-DES的整体构造"><a href="#2-2-DES的整体构造" class="headerlink" title="2.2 DES的整体构造"></a>2.2 DES的整体构造</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/5bab0a2e-56f4-437e-a389-7d6edbb53ee9.png" alt="5bab0a2e-56f4-437e-a389-7d6edbb53ee9"></p>
+<h6 id="2-2-1-DES中的F-ki-x"><a href="#2-2-1-DES中的F-ki-x" class="headerlink" title="2.2.1 DES中的F(ki,x)"></a>2.2.1 DES中的F(ki,x)</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/5c956a69-8974-47a5-9f24-42cfffddf025.png" alt="5c956a69-8974-47a5-9f24-42cfffddf025"></p>
+<hr>
+<p><mark>关于F(ki,x)中的S盒子（没看懂）</mark></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/30df09e5-e442-42f2-a986-eed688ac4945.png" alt="30df09e5-e442-42f2-a986-eed688ac4945"></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/2001fb86-b3e6-40fb-88fa-8f967813f52b.png" alt="2001fb86-b3e6-40fb-88fa-8f967813f52b"></p>
+<h4 id="2-3-关于DES的安全性（这块主要是想要说不要自己创建密码）"><a href="#2-3-关于DES的安全性（这块主要是想要说不要自己创建密码）" class="headerlink" title="2.3 关于DES的安全性（这块主要是想要说不要自己创建密码）"></a>2.3 关于DES的安全性（这块主要是想要说不要自己创建密码）</h4><h6 id="2-3-2-更多关于分组密码的攻击"><a href="#2-3-2-更多关于分组密码的攻击" class="headerlink" title="2.3.2 更多关于分组密码的攻击"></a>2.3.2 更多关于分组密码的攻击</h6><ul>
+<li><p>旁道攻击：根据运行的时间和电流分析秘钥的方法</p>
+</li>
+<li><p>错误攻击：最后一轮的错误攻击就可以暴露秘钥了</p>
+</li>
+</ul>
+<h3 id="3-AES"><a href="#3-AES" class="headerlink" title="3 AES"></a>3 AES</h3><h4 id="3-1-AES的构造"><a href="#3-1-AES的构造" class="headerlink" title="3.1 AES的构造"></a>3.1 AES的构造</h4><p>AES所使用的是一个代换置换网络，并不是feistel网络</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/29b53a1d-bbe0-4349-bb3c-873c66f6c3c9.png" alt="29b53a1d-bbe0-4349-bb3c-873c66f6c3c9"></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/9d51e19b-4532-40ee-9e7e-4cd424dc6917.png" alt="9d51e19b-4532-40ee-9e7e-4cd424dc6917"></p>
+<p>AES是将明文分成4* 4 *16的组，对于每一组进行三个操作：</p>
+<ul>
+<li><p>ByteSub：我们将当前的状态，即AES4*4看成是一个查询表格，表格中的每一个项都是查询时的索引</p>
+</li>
+<li><p>ShiftRows：将每一行的相应数据平移一下，第一行平移一个，第二行平移两个</p>
+</li>
+<li><p>MixColumns：应用线性变换，对每一列进行变换</p>
+</li>
+</ul>
+<h4 id="3-2-利用PRG构造PRF"><a href="#3-2-利用PRG构造PRF" class="headerlink" title="3.2 利用PRG构造PRF"></a>3.2 利用PRG构造PRF</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/a26ae42f-7934-4c77-a840-dc8398f7f4ee.png" alt="a26ae42f-7934-4c77-a840-dc8398f7f4ee"></p>
+<h6 id="3-2-1-PRF转换原理"><a href="#3-2-1-PRF转换原理" class="headerlink" title="3.2.1 PRF转换原理"></a>3.2.1 PRF转换原理</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/ef6cdca0-2a5b-49b9-878a-d851895f04a7.png" alt="ef6cdca0-2a5b-49b9-878a-d851895f04a7"></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/c793b5e3-0eb2-41e5-ae04-c224cda900d5.png" alt="c793b5e3-0eb2-41e5-ae04-c224cda900d5"></p>
+<p>关于为什么一个安全的PRP并不一定是一个安全的PRF：</p>
+<p>        <em>由于PRP的要求比较高，只能是满射。而PRF则没有任何要求，所以对于PRP来说它的安全性要求也比较低，而对于PRF来说，它必须不能单射的，上面这道题是单射的，所以只要看f(0)是否可能等于f(1)，两者就区分开了</em></p>
+<p>一个安全的PRP也是一个安全的PRF（在|X|足够大时成立）</p>
+<p><mark>引理：E是一个在（K,X）上的PRP，对于任何攻击者访问PRP最多Q个点的情况下满足：<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/70a467df-3598-41cf-bf1b-22302043a6a8.png" alt="70a467df-3598-41cf-bf1b-22302043a6a8"></mark></p>
+<hr>
+<p>以下的部分需要重新理出相关的结构：</p>
+<h4 id="4-使用one-time-keys去加密分组密码"><a href="#4-使用one-time-keys去加密分组密码" class="headerlink" title="4 使用one-time keys去加密分组密码"></a>4 使用one-time keys去加密分组密码</h4><h4 id="4-1-电子密码本"><a href="#4-1-电子密码本" class="headerlink" title="4.1 电子密码本"></a>4.1 电子密码本</h4><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/26b73de7-3ecd-4435-bc79-7b566304e606.png" alt="26b73de7-3ecd-4435-bc79-7b566304e606"></p>
+<p>存在一个问题：如果明文一样，则密文一样，则攻击者就可以根据密文相同知道明文相同。</p>
+<p>很容易知道，这个方法并不是语义安全的（关于语义安全需要再重新学一遍）：即可以明显区分具有相同的分组的明文和没有相同分组的明文。</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/49ec1b8d-d782-46c3-9b2f-dce62b174c23.png" alt="49ec1b8d-d782-46c3-9b2f-dce62b174c23"></p>
+<h3 id="5-同一秘钥多次加密"><a href="#5-同一秘钥多次加密" class="headerlink" title="5 同一秘钥多次加密"></a>5 同一秘钥多次加密</h3><h4 id="5-1-同一多次秘钥的语义安全"><a href="#5-1-同一多次秘钥的语义安全" class="headerlink" title="5.1 同一多次秘钥的语义安全"></a>5.1 同一多次秘钥的语义安全</h4><p>攻击者的能力：攻击者可以获得任何他选择的明文的密文</p>
+<p><em>为什么（这个要求的现实意义）：</em></p>
+<p><em>攻击者给Alice发送一个电子邮件，Alice将电子邮件加密并写到硬盘中，攻击者将硬盘偷走后，获得Alice的密文</em></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/2436aff1-2269-4c05-a37e-9875a8800216.png" alt="2436aff1-2269-4c05-a37e-9875a8800216"></p>
+<p>与流密码的安全性区别在于攻击者可以选择相关的密文。</p>
+<hr>
+<p>对于电子密码本这种加密模式，同一秘钥多次加密一定是不安全的：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/860ddc3b-3812-4368-97b8-205872452f64.png" alt="860ddc3b-3812-4368-97b8-205872452f64"></p>
+<p>即攻击者可以知道单独的m0的密文，则可以随便区分m0与m1的密文，不符合语义安全的定义</p>
+<h4 id="5-2-对于同一多次秘钥的改进（随机加密"><a href="#5-2-对于同一多次秘钥的改进（随机加密" class="headerlink" title="5.2 对于同一多次秘钥的改进（随机加密"></a>5.2 对于同一多次秘钥的改进（随机加密</h4><h6 id="5-2-1-随机加密"><a href="#5-2-1-随机加密" class="headerlink" title="5.2.1 随机加密"></a>5.2.1 随机加密</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/3d5d6bc4-2cf4-40e2-8f6d-e77e25b01667.png" alt="3d5d6bc4-2cf4-40e2-8f6d-e77e25b01667"></p>
+<p>即m0是被加密成一组密文，从这一组密文中选取一个，即为最后的密文</p>
+<p>只要被加密成的那组密文空间足够大，不会重合，就不会产生明文相同最后加密出来的密文也相同的情况。 </p>
+<p>但由于一个密文被翻译成一组密文，所以密文长度一定会增加，这就导致开销的增大。</p>
+<h6 id="5-2-2-使用新鲜值加密"><a href="#5-2-2-使用新鲜值加密" class="headerlink" title="5.2.2 使用新鲜值加密"></a>5.2.2 使用新鲜值加密</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/069d59f1-a48e-4f8a-9dcc-e42271de5ba1.png" alt="069d59f1-a48e-4f8a-9dcc-e42271de5ba1"></p>
+<p>这个值n是可以公开的，它不需要对攻击者保密，但是加密每一个明文时，必须保证不使用同一对（k,n）值。</p>
+<p>实现的方法可以是：</p>
+<ul>
+<li><p>值n是一个计数器：当发送方发送一个包，或者接收方接收到一个包时，计数器+1（接收方与发送方必须保持同步）</p>
+</li>
+<li><p>随机选取值，但必须要保证这个值得空间足够大，才能不重复（不需要协调n值）</p>
+</li>
+</ul>
+<p>对于采用新鲜值得加密方式的安全性（CPA安全性）：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/184c8bc4-b83e-4c62-9014-b6b5d3bfa018.png" alt="184c8bc4-b83e-4c62-9014-b6b5d3bfa018"></p>
+<p>攻击者选择加密的明文和新鲜值，只有一个要求新鲜值不能够选择相同的</p>
+<h4 id="5-2-CBC（密码分组链接模式）"><a href="#5-2-CBC（密码分组链接模式）" class="headerlink" title="5.2 CBC（密码分组链接模式）"></a>5.2 CBC（密码分组链接模式）</h4><h6 id="5-2-1-CBC的工作模式（基于随机IV的加密）"><a href="#5-2-1-CBC的工作模式（基于随机IV的加密）" class="headerlink" title="5.2.1 CBC的工作模式（基于随机IV的加密）"></a>5.2.1 CBC的工作模式（基于随机IV的加密）</h6><p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/72d9ac9e-da9c-4a08-96b9-f5ac88bd817e.png" alt="72d9ac9e-da9c-4a08-96b9-f5ac88bd817e"></p>
+<p>IV是一个随机的初始向量 </p>
+<p>需要把IV包含在密文中，要包含这种加密中使用的随机性（但我不懂怎么把IV包含在密文中呢）</p>
+<p>对于CBC的求解方式：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/674d2c2b-31bd-4a9c-a9b2-fe32d2c35e38.png" alt="674d2c2b-31bd-4a9c-a9b2-fe32d2c35e38"></p>
+<p>带IV的CBC模式对选择明文攻击是语义安全的：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/8907d3e9-0464-41a4-92bb-30afdef00995.png" alt="8907d3e9-0464-41a4-92bb-30afdef00995"></p>
+<p>则CBC只有在<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/4a008848-6b5a-4762-bcfb-ac7396c38ff5.png" alt="4a008848-6b5a-4762-bcfb-ac7396c38ff5">情况下是语义安全的，限定了秘钥更换的频率</p>
+<h6 id="5-2-2-CBC的要求（IV必须是随机的，即不可预测的）"><a href="#5-2-2-CBC的要求（IV必须是随机的，即不可预测的）" class="headerlink" title="5.2.2 CBC的要求（IV必须是随机的，即不可预测的）"></a>5.2.2 CBC的要求（IV必须是随机的，即不可预测的）</h6><p>如果IV不是随机的，即攻击者根据已知的加密可以预测IV的值：</p>
+<p>则根据CPA语义安全性的要求，如果想要攻击他，我们得设法区分m0与m1的加密之后区别</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/9392f605-6ca4-472f-bab5-560626bf6876.png" alt="9392f605-6ca4-472f-bab5-560626bf6876"></p>
+<p><strong>这个挑战的意思是：（首先假设攻击者知道IV1的值）攻击者首先将明文设置为0，则0与当前状态的IV1异或，异或后加密 ，则将知道IV1加密后的结果，攻击者将下一次的明文选择为IV1与IV的异或，则攻击者可以直接区分IV1与IV2的区别</strong></p>
+<h6 id="5-2-3-CBC的工作模式（基于新鲜值的加密）"><a href="#5-2-3-CBC的工作模式（基于新鲜值的加密）" class="headerlink" title="5.2.3 CBC的工作模式（基于新鲜值的加密）"></a>5.2.3 CBC的工作模式（基于新鲜值的加密）</h6><p>在这个模式中IV被不随机但唯一的新鲜值所替代</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/7b502f22-075d-4f50-8b3a-6dfb63096517.png" alt="7b502f22-075d-4f50-8b3a-6dfb63096517"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/10/03/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2023/11/01/%E4%BF%A1%E6%81%AF%E5%AE%8C%E6%95%B4%E6%80%A7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            信息完整性
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/12/24/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">python学习笔记</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022-2023
+        <i class="ri-heart-fill heart_icon"></i> enhenng
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Enhenng的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E9%98%85%E8%AF%BB">阅读</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=22707008&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>

@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>tags |  Enhenng的博客</title>
+      <title> Enhenng的博客</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,13 +53,184 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-哈希函数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+     
+    <div class="article-meta">
+      <a href="/2023/11/23/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" class="article-date">
+  <time datetime="2023-11-23T11:53:50.503Z" itemprop="datePublished">2023-11-23</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">573</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">2 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
   
-    <h1 class="page-type-title">Tags</h1>
-    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="哈希函数（Hash-Function）"><a href="#哈希函数（Hash-Function）" class="headerlink" title="哈希函数（Hash Function）"></a>哈希函数（Hash Function）</h1><p>阅读的相关参考：</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/265497575?utm_id=0">https://zhuanlan.zhihu.com/p/265497575?utm_id=0</a>  （哈希函数的整体概括）</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_60775983/article/details/126767659">【精选】字符串哈希_trudbot的博客-CSDN博客</a></p>
+</li>
+</ol>
+<p>终于，在经过很长时间的哈希函数折磨之后，今天我要梳理什么是哈希函数了！！！</p>
+<h2 id="1-什么是哈希函数"><a href="#1-什么是哈希函数" class="headerlink" title="1.什么是哈希函数"></a>1.什么是哈希函数</h2><p>哈希函数是指能将<font color="red">任意大小</font>的输入映射到<font color="red">固定大小</font>的哈希值的函数</p>
+<p><em>在密码学中，哈希函数的输入key也叫做message，输出hash value也叫消息摘要，哈希函数记作h&#x3D;H(m)</em>(暂时还不知道这块的用处)</p>
+<p>和哈希函数密切相关的另一个概念是哈希表（Hash Table），哈希表是一种数据结构，它会用到哈希函数的输出值</p>
+<p>一个好的哈希函数至少具有两个特性：</p>
+<p>1.计算要足够快</p>
+<p>2.最小化碰撞（即输出的哈希值尽可能不会重复）</p>
+<h2 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h2><h3 id="2-1-字符串哈希"><a href="#2-1-字符串哈希" class="headerlink" title="2.1 字符串哈希"></a>2.1 字符串哈希</h3><p>简单理解就是将一个字符串通过某种hash函数变为数字</p>
+<p><strong>字符串前缀哈希</strong> </p>
+<p>字符串前缀哈希是<font color="red">前缀思想</font>在哈希中的应用（天哪噜，啥是前缀思想啊）</p>
+<p><em>单次计算一个字符串的哈希值的复杂程度是O(n)，如果需要多次询问一个字符串子串的哈希值，效率十分低下，所以希望可以使用特别的哈希函数，使用字符串前缀的哈希值而推出一连串子串的哈希值</em></p>
+<h4 id="2-1-1-哈希函数和公式"><a href="#2-1-1-哈希函数和公式" class="headerlink" title="2.1.1 哈希函数和公式"></a>2.1.1 哈希函数和公式</h4><p>$$<br>hashCode &#x3D;\sum_{i&#x3D;0}^n S_{[i]}*p^{(n-i)}<br>$$</p>
+<p>即对于abc来说，不妨假设a&#x3D;1,b&#x3D;2,c&#x3D;3</p>
+<p>则应用这一公式</p>
+<p>$$<br>a &#x3D; 1*p^0  （其中1即为S_{[0]})<br>$$</p>
+<p>$$<br>  ab &#x3D; 1<em>p^1+2</em>p^0<br>$$</p>
+<p>$$<br>abc &#x3D; 1<em>p^2+2</em>p^1+3*p^0<br>$$</p>
+<p>则不难得到以下的公式：</p>
+<p>$$<br>pref[i] &#x3D; pref[i-1]*p+S[i]<br>$$</p>
+<p><em>这里所指的前缀就是前面的部分，以abc为例，pref[1]指的是a</em></p>
+<p>我们得到了一个字符串所有长度前缀的哈希值，那么怎么得到某个区间[l,r]的哈希值呢？</p>
+<h4 id="2-1-2-区间哈希"><a href="#2-1-2-区间哈希" class="headerlink" title="2.1.2 区间哈希"></a>2.1.2 区间哈希</h4><p>$$<br>hashCode[l,r] &#x3D; pref[r]-pref[l-1]*p^{(r-l-1)}<br>$$</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/11/23/%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2024/10/23/%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%9A%84%E6%B1%9F%E6%B9%96%E2%80%9D%E4%B9%89%E2%80%9C%E6%B0%94/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            中国人的江湖“义”气
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2023/11/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%9E%E9%AA%8C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">密码学实验一</div>
+      </a>
+    
+  </nav>
+
   
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
-
-
       <footer class="footer">
   <div class="outer">
     <ul>
@@ -207,6 +378,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link

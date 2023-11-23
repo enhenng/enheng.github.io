@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>enhenng-first-blog----sql注入(持续更新） |  Enhenng的博客</title>
+      <title>信息完整性 |  Enhenng的博客</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -54,7 +54,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-enhenng-first-blog-sql注入"
+  id="post-信息完整性"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -65,7 +65,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  enhenng-first-blog----sql注入(持续更新）
+  信息完整性
 </h1>
  
 
@@ -73,11 +73,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/11/09/enhenng-first-blog-sql%E6%B3%A8%E5%85%A5/" class="article-date">
-  <time datetime="2022-11-09T08:51:38.000Z" itemprop="datePublished">2022-11-09</time>
+      <a href="/2023/11/01/%E4%BF%A1%E6%81%AF%E5%AE%8C%E6%95%B4%E6%80%A7/" class="article-date">
+  <time datetime="2023-10-31T16:00:00.000Z" itemprop="datePublished">2023-11-01</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/web%E5%AD%A6%E4%B9%A0/">web学习</a>
+    <a class="article-category-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%90%86%E8%AE%BA%E7%9F%A5%E8%AF%86/">密码学理论知识</a>
   </div>
   
 <div class="word_count">
@@ -85,7 +85,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">786</span>
+            <span class="post-count">1.6k</span>
         </span>
     </span>
 
@@ -94,7 +94,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">5 min</span>
         </span>
     </span>
 </div>
@@ -109,31 +109,127 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Hello，我是enhenng,在历经了长达三周的删删改改重建之后，我的blog终于搭建成功啦。</p>
-<p>本文目标：学习sql注入，掌握基本的注入知识<br>基础知识：</p>
-<h1 id="一：sql注入的基础知识："><a href="#一：sql注入的基础知识：" class="headerlink" title="一：sql注入的基础知识："></a>一：sql注入的基础知识：</h1><h2 id="sql的类型"><a href="#sql的类型" class="headerlink" title="sql的类型"></a>sql的类型</h2><ol>
-<li>get型注入：直接在URL中进行sql注入（例如第一题）</li>
-</ol>
-<h2 id="需要使用要的一些函数"><a href="#需要使用要的一些函数" class="headerlink" title="需要使用要的一些函数"></a>需要使用要的一些函数</h2><h1 id="二：sqli-labs闯关"><a href="#二：sqli-labs闯关" class="headerlink" title="二：sqli-labs闯关"></a>二：sqli-labs闯关</h1><p><strong>第一关：基于错误的get型注入（字符型）</strong>（嗯…啥是基于错误？）<br>首先判断注入类型—–&gt;字符型or数字型<br>如何判断注入类型<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5edd7a58a69e" title="参考文章">（参考文章）</a>  （这个很重要）<br>按照文章所示，尝试一下，发现在输入?id&#x3D;1’ and ‘1’&#x3D;’2’–+（这道题如果不加上–+，在回显时会出现报错）（想插一个图片来着，没找到合适的方法，算了）没有回显，是字符型注入。<br>尝试获取列数（在后面的union中需要保证前后队列书相同）</p>
-<blockquote>
-<p>?id&#x3D;1’ order by 3–+   —-&gt;回显正常<br>?id&#x3D;1’ order by 4–+   —-&gt;unkown column ‘4’ in ‘order clause’    </p>
-</blockquote>
-<p>即共有3列，下面才是重点<br>在获取敏感信息前要确定什么才是回显的内容  ?id&#x3D;-1’ union select 1,2,3(得到回显的内容）<br><strong>查询数据库信息</strong>  </p>
-<blockquote>
-<p>union select 1,database(),version<br>union select 1,1,SCHEMA_NAME from information_schema.SCHEMATA（暴露数据库名称）（在这之前需要了解一下数据库的结构）&#x2F;&#x2F;这个命令存在着一个问题</p>
-</blockquote>
-<p>，只暴露所找的第一个表名称）<br>解决：union select 1,1,(SELECT GROUP_CONCAT(schema_name) FROM information_schema.schemata)–+<br>union select 1,1,TABLE_NAME（表名）,TABLE_SCHEMA（表所在数据库）from information_schema.TABLES（暴露数据库中表的名称）  &#x2F;&#x2F;这个命令存在着一个问题<br>，只暴露所找的第一个表名称）<br>union select 1,1,(SELECT GROUP_CONCAT(table_name) FROM information_schema.tables *where table_schema&#x3D;’mysql’*)–+(MYSQL查询不区分大小写，但其库名表名等是严格区分大小写的）<br>union select 1,1,(select group_concat(column_name) from information_schema.columns where table_name &#x3D; “CHARACTER_SETS”)–+  </p>
-<p>这里的命令可以根据所想要查找的内容任意改变。  </p>
-<p><strong>第二关（数字型）</strong><br>与第一关相同，首先判断sql注入的类型为数字型<br>按照第一关的步骤，依次获得数据库的名称，数据库中表的名称，列的名称等等  </p>
-<p><strong>第三关</strong>（这一关与前两关的区别在于需要根据回显错误的内容猜测输入与原句的关系）<br>尝试猜测过程：  </p>
+  <h1 id="第三章-信息完整性"><a href="#第三章-信息完整性" class="headerlink" title="第三章 信息完整性"></a>第三章 信息完整性</h1><p><strong>信息完整性的可能用途</strong>：例如，成绩单（不需要考虑成绩单的保密性，但需要保证成绩单并没有被修改过）</p>
+<h3 id="3-1MAC"><a href="#3-1MAC" class="headerlink" title="3.1MAC"></a>3.1MAC</h3><h5 id="3-1-1-MAC的结构"><a href="#3-1-1-MAC的结构" class="headerlink" title="3.1.1  MAC的结构"></a>3.1.1  MAC的结构</h5><p>MAC与CRC的区别在于是否有相关的密钥。MAC更加安全的原因在于让攻击者无法直接伪造性构造</p>
+<p>MAC的整体结构：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/8247c06e-c9da-416b-8e93-9ea47b3d864d.png" alt="8247c06e-c9da-416b-8e93-9ea47b3d864d"></p>
+<p>CRC构造</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/4afc8986-b5f5-4da8-9c2f-5ccd957a1619.png" alt="4afc8986-b5f5-4da8-9c2f-5ccd957a1619"></p>
+<p>CRC是为了检测随机错误而设计的，并不是为了防止恶意错误</p>
+<h5 id="3-1-2-Secure-MACs"><a href="#3-1-2-Secure-MACs" class="headerlink" title="3.1.2 Secure MACs"></a>3.1.2 Secure MACs</h5><p><strong>MAC的安全性定义</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/abd09107-02fa-4e75-802e-c79bc9ccab0c.png" alt="abd09107-02fa-4e75-802e-c79bc9ccab0c"></p>
+<p>即攻击者在选择性攻击的情况下，无法构造新的信息对（存在性伪造），这里包含了几个意思：</p>
 <ol>
-<li>输入?id&#x3D;1 回显正常  </li>
-<li>输入?id&#x3D;1’ 回显错误   You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’1’’) LIMIT 0,1’ at line 1(即’’1’’)LIMIT 0,1’为url真正输入的)  </li>
-<li>易看出应该是需要输入’)  </li>
-<li>尝试输入?id&#x3D;1’)–+回显正常，则得出需要输入的东西</li>
+<li><p>攻击者构造对的信息对的可能性必须可忽略，而不能是比较大的</p>
+</li>
+<li><p>攻击者在已知信息m的标签的情况下，不能知道该信息的其他新标签（即攻击者不能对已签名的产生新的标签</p>
+</li>
 </ol>
-<p>但是这块还有一点我没能搞明白，为什么一定要按照?id&#x3D;1’) order by 1–+输入，而不能按照?id&#x3D;1’ order by 1)–+输入<br>之后，按照第一题依次得到即可以</p>
-<p><strong>第四关</strong>(什么鬼，为什么我的第四关不报错）</p>
+<p><strong>MAC安全性的更为广泛的数学定义</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/66214f0d-f898-4214-967b-38cbb66bebab.png" alt="66214f0d-f898-4214-967b-38cbb66bebab"></p>
+<p>定义对于某一个安全的MAC，没有攻击者可以以不可忽略的概率输出一个新的标签对。</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/83571873-342a-41d9-affa-77c25824fd1c.png" alt="83571873-342a-41d9-affa-77c25824fd1c"></p>
+<p>对于这道题，即针对MAC的选择性攻击，攻击者猜对的概率为1&#x2F;2，不可忽略</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/618c9692-06b1-4586-bc89-35c38918bf45.png" alt="618c9692-06b1-4586-bc89-35c38918bf45"></p>
+<p>这道题是由于标签空间太小，本身纯猜测的概率就直接为不可忽略的</p>
+<h5 id="3-1-3-MAC的应用"><a href="#3-1-3-MAC的应用" class="headerlink" title="3.1.3 MAC的应用"></a>3.1.3 MAC的应用</h5><p>对于windows硬盘的加密：</p>
+<p>利用MAC可以判断哪些文件是被修改过的</p>
+<p>但是MAC只能证明文件是否被修改，对于保护的内容是否被交换并没有任何的检验方法</p>
+<p>所以，为了防止文件被交换，而文件名并没有被交换，必须保证文件名与文件同时被MAC的算法使用。</p>
+<h5 id="3-1-4-构造MAC"><a href="#3-1-4-构造MAC" class="headerlink" title="3.1.4 构造MAC"></a>3.1.4 构造MAC</h5><p>首先，我们想到利用PRF来构造MAC</p>
+<p>直接将message代入到PRF当中，作为输入，得到相关的输出</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/b1efc6ec-c239-4d26-9750-b1ef073590d1.png" alt="b1efc6ec-c239-4d26-9750-b1ef073590d1"></p>
+<p>可以很明显的发现标签的空间大小即为Y的空间大小</p>
+<p> 所以，易得到相关的结论：<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/be3bb01b-52f0-4cf2-9257-58fdccf49de8.png" alt="be3bb01b-52f0-4cf2-9257-58fdccf49de8"></p>
+<p>关于这个定理的证明：</p>
+<p>首先，假设一个函数f，它的输入和输出真的是随机的，独立的没有任何关系</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/d9377c02-dccd-42af-9cff-9685e88f9723.png" alt="d9377c02-dccd-42af-9cff-9685e88f9723"></p>
+<p>对于这个完全随机的函数，则得到新的信息对的概率为|Y|的大小。但是，由于并不是完全随机的，这意味着还需要加上一个概率。由于MAC直接是由PRF构成的，所以再加上PRF的优势。</p>
+<h5 id="3-1-5-CBC-MAC-and-NMAC"><a href="#3-1-5-CBC-MAC-and-NMAC" class="headerlink" title="3.1.5 CBC-MAC and NMAC"></a>3.1.5 CBC-MAC and NMAC</h5><p><strong>Construction 1:ECBC</strong></p>
+<p>构造一个PRF来处理长信息</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/1643451a-a5fb-425c-89fb-6601bb7d3d39.png" alt="1643451a-a5fb-425c-89fb-6601bb7d3d39"></p>
+<p>如果没有最后一步，则是原本的CBC，而这种方式是不安全的；最后一步的k1与前面的k并不一致</p>
+<p><strong>Consturction 2:NMAC</strong></p>
+<p>将小PRF转变成大PRF的，叫做NMAC</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/29fd04e0-d3c9-4384-91d4-91ff6e8635d7.png" alt="29fd04e0-d3c9-4384-91d4-91ff6e8635d7"></p>
+<p>如果没有最后的一部分，前面的叫做级联函数，输出的内容是秘钥空间的内容，由于F中的输入X应该大于K的值，所以使用fpad将其填充完毕</p>
+<p><strong>探究：为什么不给最后一步，那么ECBC和NMAC都是不安全的呢？</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/5a8dfc95-d927-406c-a356-37ab893d22af.png" alt="5a8dfc95-d927-406c-a356-37ab893d22af"></p>
+<p>已知一个标签对cascade(k,m)，即可以得到相关的cascade(k1,m||w)</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/dba83c4c-b107-4be0-a176-2b86c604001a.png" alt="dba83c4c-b107-4be0-a176-2b86c604001a"></p>
+<p>ECBC-MAC的最后一步的意义：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/f56c5f3e-8a09-4063-b33e-9fecedcf92e9.png" alt="f56c5f3e-8a09-4063-b33e-9fecedcf92e9"></p>
+<p><strong>关于 ECBC-MAC 和NMAC的一些相关分析：</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/993c6411-4614-4636-a09b-b2ab9e17dfad.png" alt="993c6411-4614-4636-a09b-b2ab9e17dfad"></p>
+<p>  其中q就在告诉我们每组的最长长度，即每经过多少组就需要重新换一个秘钥</p>
+<p>基于这样一个定理的相关攻击：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/2b74ac2a-af9b-4ad8-ad9c-4a8d31a3c9dd.png" alt="2b74ac2a-af9b-4ad8-ad9c-4a8d31a3c9dd"></p>
+<p>首先我们假设这其中的PRF是一个PRP</p>
+<p>那么对于ECBC和NMAC中的PRF都具有以下的性质：</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/699ed35f-8166-4290-992f-a3b6b25c8918.png" alt="699ed35f-8166-4290-992f-a3b6b25c8918"></p>
+<p>（直接代入ECBC和NMAC方法即可知道）</p>
+<p>正式展开攻击：</p>
+<ol>
+<li><p>询问|Y|^1&#x2F;2次的标签对</p>
+</li>
+<li><p>在这样的标签对中应该碰撞的</p>
+</li>
+<li><p>选择w，构造x||w，询问t&#x3D;F(k,m|w)</p>
+</li>
+<li><p>就可以得到另一组</p>
+</li>
+</ol>
+<h5 id="3-1-6-MAC-padding（信息长度不是分组长度的整数倍时）"><a href="#3-1-6-MAC-padding（信息长度不是分组长度的整数倍时）" class="headerlink" title="3.1.6 MAC padding（信息长度不是分组长度的整数倍时）"></a>3.1.6 MAC padding（信息长度不是分组长度的整数倍时）</h5><p>补齐信息：</p>
+<ol>
+<li>首先想到的，利用0去补齐信息</li>
+</ol>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/0643fa0d-966d-4b70-8d52-70baa19096ef.png" alt="0643fa0d-966d-4b70-8d52-70baa19096ef"></p>
+<ol start="2">
+<li>补齐函数必须是一个可逆函数（即它是一对一的）</li>
+</ol>
+<p>把字符1000加在最后，如果是分组的整数倍，依旧需要加一个分组长度 </p>
+<ol start="3">
+<li>CMAC（使用一个随机的补齐函数）</li>
+</ol>
+<p>三秘钥机制：key&#x3D;(k,k1,k2)</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/9b50152f-dac4-4769-aa0d-5557cefd859a.png" alt="9b50152f-dac4-4769-aa0d-5557cefd859a"></p>
+<h5 id="3-1-7-并行的MAC"><a href="#3-1-7-并行的MAC" class="headerlink" title="3.1.7 并行的MAC"></a>3.1.7 并行的MAC</h5><p>在之前所说的两种MAC算法中，都是串行的，</p>
+<p><strong>Construction 3:PMAC</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/2c8572b7-c212-4341-b04b-ee559f439771.png" alt="2c8572b7-c212-4341-b04b-ee559f439771"></p>
+<p>如果没有中间的P(k,0)这步，那么这个算法是不安全的。想象一个m[0]||m[1]||m[2]等的message，则它的取值与m[1]||m[0]||m[2]是完全一致的，因为异或并不讲究顺序。</p>
+<p>遗留了两个问题：</p>
+<ol>
+<li><p>为什么最后一个分组没有相关的PRF求解</p>
+</li>
+<li><p>如果不是分组的整数倍，怎么办</p>
+</li>
+</ol>
+<p><strong>PMAC:Analysis</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/d7aeb6b4-8fbc-4ac3-956f-fd8337ae1a5b.png" alt="d7aeb6b4-8fbc-4ac3-956f-fd8337ae1a5b"></p>
+<p>老样子，q是一个秘钥对应的分组数</p>
+<p><strong>PMAC的优势</strong></p>
+<p>假设PMAC中的伪随机发生器是可逆的，那么将信息中的某一个值改变后，不必将所有的值全部都重新算一遍</p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/b1affc30-4062-4076-bcb4-d139f4140f8a.png" alt="b1affc30-4062-4076-bcb4-d139f4140f8a"></p>
+<h5 id="3-1-8-One-time-MAC"><a href="#3-1-8-One-time-MAC" class="headerlink" title="3.1.8 One time MAC"></a>3.1.8 One time MAC</h5><p>与一次性密码本有些相似，这里的意思是一个秘钥只能用于一个信息的完整性</p>
+<p>这个方法会比基于PRF的MAC更快，下面是一个一次性MAC的简单例子</p>
+<ol>
+<li><p>首先，选取一个比分组大小更大的值，例如，如果分组大小为2^128，那么选取q&#x3D;2^128+51</p>
+</li>
+<li><p>从1到q中随机选取两个数作为秘钥对（k,a）</p>
+</li>
+<li><p>将信 息分组，分成L个组。（msg&#x3D;(m[1],…,m[L]))</p>
+</li>
+<li><p>从而构造<img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/83ea47cb-cab9-420e-a6fb-5c02db7bf0c7.png" alt="83ea47cb-cab9-420e-a6fb-5c02db7bf0c7"></p>
+</li>
+</ol>
+<p>但这是一次性MAC，但不是二次安全的，如果你看见了两个标签对，就会完全暴露k的值（相当于解2元L次的方程）</p>
+<p><strong>如果我们有一次性的MAC，那么我们可以构造多次MAC</strong></p>
+<p><img src="file:///C:/Users/enhenng.LAPTOP-S79UHVDU/Pictures/Typedown/f642aa0b-82a6-4bfb-b5f0-e7e97cfc8e3c.png" alt="f642aa0b-82a6-4bfb-b5f0-e7e97cfc8e3c"></p>
+<p>随机选择一个随机数r，并利用PRF生成一个随机数与之前的一次性MAC进行异或，r在每次重新计算标签时，都会被重新计算</p>
+<p>那么在接收到如此的标签对（r,t）时，我们怎么知道这个标签对是有效的呢？</p>
+<p>V(k,m,tag)是one time MAC的验证算法</p>
+<p>V(k,m,t⊕F(k1,r))即可验证</p>
+<p>这章后面给了一些相关的论文，可以看看，深入了解一下这方面的知识</p>
  
       <!-- reward -->
       
@@ -198,7 +294,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/11/09/enhenng-first-blog-sql%E6%B3%A8%E5%85%A5/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/11/01/%E4%BF%A1%E6%81%AF%E5%AE%8C%E6%95%B4%E6%80%A7/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -209,19 +305,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/11/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A2%84%E7%AE%97%E5%88%86%E6%9E%90/" class="article-nav-link">
+      <a href="/2023/11/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%9E%E9%AA%8C/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            数据结构与算法分析
+            密码学实验一
           
         </div>
       </a>
     
     
-      <a href="/2022/11/09/hello-world/" class="article-nav-link">
+      <a href="/2023/10/03/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Hello World</div>
+        <div class="article-nav-title">分组密码</div>
       </a>
     
   </nav>
